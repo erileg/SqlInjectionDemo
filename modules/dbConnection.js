@@ -2,22 +2,24 @@ const mysql = require('mysql');
 const config = require("../config");
 const pool = mysql.createPool(config.mysqlconfig);
 
-module.exports.queryDb = (query, params, callback) => {
-  pool.getConnection(function (err, connection) {
-    if (err) {
-      console.log("db connection error: " + err);
-      connection.release();
-      callback(err, []);
-    }
+module.exports.queryDb = (query, params) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      if (err) {
+        console.log("db connection error: " + err);
+        connection.release();
+        return reject(err)
+      }
 
-    connection.query(query, params, function (err, records) {
-      connection.release();
-      callback(err, records);
-    });
+      connection.query(query, params, (err, records) => {
+        connection.release();
+        return resolve(records)
+      });
 
-    connection.on('error', function (err) {
-      console.log("db connection error: " + err);
-      callback(err, []);
+      connection.on('error', err => {
+        console.log("db connection error: " + err);
+        return reject(err);
+      });
     });
-  });
-}
+  })
+};
