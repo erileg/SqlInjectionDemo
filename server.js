@@ -18,11 +18,9 @@ app.queryDb = function (query, params, callback) {
       callback(err, []);
     }
 
-    console.log('connected as id ' + connection.threadId);
-
     connection.query(query, params, function (err, records) {
       connection.release();
-        callback(err, records);
+      callback(err, records);
     });
 
     connection.on('error', function (err) {
