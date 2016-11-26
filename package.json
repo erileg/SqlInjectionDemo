@@ -1,7 +1,7 @@
 {
-  "name": "spiff_rest_service",
+  "name": "sql_injection_demo",
   "version": "1.0.0",
-  "description": "Spiff Rest Service",
+  "description": "SQL Injection Demo",
   "license": "MIT",
   "repository": {
     "type": "git",
