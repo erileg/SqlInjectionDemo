@@ -7,7 +7,7 @@ module.exports = app => {
         //const filter = req.params.filter ||  ""; 
         const query = `SELECT lastname, firstname, email FROM users WHERE ${filterClause} > 0 ORDER BY lastname`;
         //console.log(`query: ${query}`);
-        app.mysqlQuery(query, [req.query.filter], (err, records) => {
+        app.queryDb(query, [req.query.filter], (err, records) => {
             if (!err){
                 res.render("users", {"title": "users", "users":records});
                 //console.log(records);

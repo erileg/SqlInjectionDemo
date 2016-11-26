@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const config = require("../config");
 const pool = mysql.createPool(config.mysqlconfig);
 
-module.exports = (query, params, callback) => {
+module.exports.queryDb = (query, params, callback) => {
   pool.getConnection(function (err, connection) {
     if (err) {
       console.log("db connection error: " + err);

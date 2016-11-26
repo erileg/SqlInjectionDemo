@@ -8,7 +8,7 @@ const path = require("path");
 const config = require("./config");
 
 // register MySql query function
-app.mysqlQuery = require("./modules/mysql-query");
+app.queryDb = require("./modules/dbConnection").queryDb;
 
 // setup express to use pug template engine
 app.set("view engine", "pug");
