@@ -5,7 +5,7 @@ module.exports = app => {
     app.get('/users', (req, res, next) => {
         const filterClause = req.query.filter ? "INSTR(CONCAT(firstname, '|', lastname), ?)" : "1=1"; 
         //const filter = req.params.filter ||  ""; 
-        const query = `SELECT lastname, firstname, email FROM users WHERE ${filterClause} > 0 ORDER BY lastname`;
+        const query = `SELECT id, lastname, firstname, email FROM users WHERE ${filterClause} > 0 ORDER BY lastname`;
         //console.log(`query: ${query}`);
         app.queryDb(query, [req.query.filter], (err, records) => {
             if (!err){
