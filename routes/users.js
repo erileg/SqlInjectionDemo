@@ -9,7 +9,6 @@ module.exports = app => {
         //console.log(`query: ${query}`);
         app.queryDb(query, [req.query.filter]).then(users => {
             res.render("users", { "title": "users", "users": users });
-            //console.log(records);
         }).catch(err => {
             next();
         });
