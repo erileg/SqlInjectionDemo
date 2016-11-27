@@ -6,7 +6,7 @@ module.exports.queryDb = (query, params) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       if (err) {
-        console.log("db connection error: " + err);
+        console.log("dbConnection -> " + err);
         connection.release();
         return reject(err)
       }
@@ -17,7 +17,7 @@ module.exports.queryDb = (query, params) => {
       });
 
       connection.on('error', err => {
-        console.log("db connection error: " + err);
+        console.log("dbConnection -> " + err);
         return reject(err);
       });
     });
