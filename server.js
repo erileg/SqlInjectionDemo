@@ -4,6 +4,16 @@ const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
 
+require("console-stamp")(console, {
+  pattern: "dd.mm.yyyy HH:MM:ss",
+  label: false,
+  colors: {
+    stamp: "yellow",
+    label: "white",
+    metadata: "green"
+  }
+});
+
 // read configuration
 const config = require("./config");
 
