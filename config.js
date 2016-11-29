@@ -5,8 +5,8 @@ module.exports = {
     },
     "mysqlconfig": {
         "host": 'raspberrypi.fritz.box',
-        "user": 'root',
-        "password": 'root',
+        "user": 'spiff',
+        "password": 'WJax2016',
         "database": 'hackme',
         "connectionLimit": 100,
         "debug": false

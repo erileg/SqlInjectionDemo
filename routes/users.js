@@ -17,6 +17,22 @@ module.exports = app => {
 
     // create user
     app.post('/users', (req, res, next) => {
+        const query = `INSERT into users (
+            username,
+            password,
+            email,
+            firstname,
+            lastname,
+            country,
+            city,
+            zipcode,
+            street,
+            creditcardcmp,
+            creditcardpan,
+            creditcardcvv
+            VALUES(
+
+            )`;
     });
 
     // delete a user
