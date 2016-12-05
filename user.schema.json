@@ -32,6 +32,9 @@
         "street": {
             "type": "string"
         },
+        "streetnumber": {
+            "type": "string"
+        },
         "creditcardcmp": {
             "type": "string"
         },
