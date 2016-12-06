@@ -32,11 +32,10 @@ module.exports = app => {
             city,
             zipcode,
             street,
-            streetnumber,
             creditcardcmp,
             creditcardpan,
             creditcardcvv
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         
         const userdata = [
                 req.body.username,
@@ -48,7 +47,6 @@ module.exports = app => {
                 req.body.city,
                 req.body.zipcode,
                 req.body.street,
-                req.body.streetnumber,
                 req.body.creditcardcmp,
                 req.body.creditcardpan,
                 req.body.creditcardcvv            
