@@ -1,41 +1,42 @@
 extends layout
 
 block content
-form(method='POST' action='/users')
-    div.form-group
-    label(for='name') Userame:
-    input#username.form-control(type='text', placeholder='username' name='username')
-    div.form-group
-    label(for='pw') Password:
-    input#pw.form-control(type='password' name='password')
-    div.form-group
-    label(for='pw2') Confirm Password:
-    input#pw2.form-control(type='password' name='confirmPassword')
-    div.form-group
-    label(for='email') Email:
-    input#email.form-control(type='email', placeholder='user@example.com' name='email')
-    div.form-group
-    label(for='firstname') Firstname:
-    input#firstname.form-control(type='text', placeholder='firstname' name='firstname')
-    div.form-group
-    label(for='lastname') Lastname:
-    input#lastname.form-control(type='text', placeholder='lastname' name='lastname')
-    div.form-group
-    label(for='country') Country:
-    input#country.form-control(type='text', placeholder='country' name='country')
-    div.form-group
-    label(for='city') City:
-    input#city.form-control(type='text', placeholder='city' name='city')
-    div.form-group
-    label(for='street') Street:
-    input#street.form-control(type='text', placeholder='street' name='street')
-    div.form-group
-    label(for='creditcardcmp') Creditcard Company:
-    input#creditcardcmp.form-control(type='text', placeholder='creditcardcmp' name='creditcardcmp')
-    div.form-group
-    label(for='creditcardpan') Creditcard Pan:
-    input#creditcardpan.form-control(type='text', placeholder='1111222233334444' name='creditcardpan')
-    div.form-group
-    label(for='creditcardcvv') Creditcard CVV:
-    input#creditcardcvv.form-control(type='text', placeholder='123' name='creditcardcvv')
-    button.btn.btn-primary(type='submit') Save
+    form(method='POST' action='/users')
+        div.form-group
+        label(for='name') Userame:
+        input#username.form-control(type='text', placeholder='username' name='username')
+        div.form-group
+        label(for='pw') Password:
+        input#pw.form-control(type='password' name='password')
+        div.form-group
+        label(for='pw2') Confirm Password:
+        input#pw2.form-control(type='password' name='confirmPassword')
+        div.form-group
+        label(for='email') Email:
+        input#email.form-control(type='email', placeholder='user@example.com' name='email')
+        div.form-group
+        label(for='firstname') Firstname:
+        input#firstname.form-control(type='text', placeholder='firstname' name='firstname')
+        div.form-group
+        label(for='lastname') Lastname:
+        input#lastname.form-control(type='text', placeholder='lastname' name='lastname')
+        div.form-group
+        label(for='country') Country:
+        input#country.form-control(type='text', placeholder='country' name='country')
+        div.form-group
+        label(for='city') City:
+        input#city.form-control(type='text', placeholder='city' name='city')
+        div.form-group
+        label(for='street') Street:
+        input#street.form-control(type='text', placeholder='street' name='street')
+        div.form-group
+        label(for='creditcardcmp') Creditcard Company:
+        input#creditcardcmp.form-control(type='text', placeholder='creditcardcmp' name='creditcardcmp')
+        div.form-group
+        label(for='creditcardpan') Creditcard Pan:
+        input#creditcardpan.form-control(type='text', placeholder='1111222233334444' name='creditcardpan')
+        div.form-group
+        label(for='creditcardcvv') Creditcard CVV:
+        input#creditcardcvv.form-control(type='text', placeholder='123' name='creditcardcvv')
+
+        button.btn.btn-primary(type='submit') Save

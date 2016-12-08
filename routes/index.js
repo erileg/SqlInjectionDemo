@@ -7,7 +7,6 @@ module.exports = app => {
 				url: `${req.protocol}://${req.hostname}:${req.socket.localPort}${r.route.path}`,
 				method: Object.keys(r.route.methods)[0].toUpperCase()
 			};
-			// return `${req.protocol}://${req.hostname}:${req.socket.localPort}${r.route.path.replace(/:(\w+)/g, "{$1}")}`;
 		});
 
 		res.render("index", {
