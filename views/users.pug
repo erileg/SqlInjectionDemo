@@ -1,21 +1,19 @@
 extends layout
 
 block content
-    div(class="box")
-        h1= title
-
-        table
-            thead
-                tr
-                    th ID
-                    th Last Name
-                    th First Name
-                    th EMail
-            tbody
-                each user in users
-                    tr(class=(i % 2 == 0) ? 'odd' : 'even') 
-                      td #{user.id}
-                      td #{user.lastname}
-                      td #{user.firstname} 
-                      td #{user.email} 
+    h1.title= title
+    div.box
+        div.table-responsiv
+            table.table.table-hover.table-striped
+                thead.thead-inverse
+                    tr
+                        th Last Name
+                        th First Name
+                        th EMail
+                tbody
+                    each user in users
+                        tr 
+                            td #{user.lastname}
+                            td #{user.firstname} 
+                            td #{user.email} 
 

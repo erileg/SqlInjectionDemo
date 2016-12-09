@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // body parser
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // middleware for all requests
 require('./routes/all')(app);

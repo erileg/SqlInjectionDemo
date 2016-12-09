@@ -1,8 +1,16 @@
 extends layout
 
 block content
-    div(class="box")
-        h1= title
-        ul
-            each route in routes
-                li: a(href=route.url class="button-link") #{route.url} [#{route.method}] 
+    h1.title= title
+    div.box
+        div.table-responsiv
+            table.table.table-hover.table-striped
+                thead.thead-inverse
+                    tr
+                        th Url
+                        th Method
+                tbody
+                    each route in routes
+                        tr
+                            td: a.simple(href=route.url) #{route.url} 
+                            td=route.method 

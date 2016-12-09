@@ -7,7 +7,7 @@ module.exports = app => {
         const orderCol = req.query.orderby || "lastname";
         const query = `SELECT id, lastname, firstname, email FROM users WHERE ${filterClause} > 0 ORDER BY ${orderCol}`;
         //console.log(`query: ${query}`);
-        
+
         app.queryDb(query, [req.query.filter]).then(users => {
             res.render("users", { "title": "users", "users": users });
         }).catch(err => {
@@ -16,10 +16,18 @@ module.exports = app => {
     });
 
     // edit user
-    app.get('/user', (req, res, next) => {
-        res.render("useredit", { "title": "Edit"});
+    app.get('/user/:id', (req, res, next) => {
+        const query = `SELECT * FROM users WHERE id = ?`;
+
+        app.queryDb(query, [req.params.id]).then(user => {
+            const userData = user[0] || {};
+            res.render("useredit", { "title": "Edit", "user": userData});
+        }).catch(err => {
+            next();
+        });
+
     });
-    
+
     // create user
     app.post('/users', (req, res, next) => {
         const query = `INSERT into users (
@@ -34,32 +42,39 @@ module.exports = app => {
             street,
             creditcardcmp,
             creditcardpan,
-            creditcardcvv
+            creditcardcvv)
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        
+
         const userdata = [
-                req.body.username,
-                req.body.password,
-                req.body.email,
-                req.body.firstname,
-                req.body.lastname,
-                req.body.country,
-                req.body.city,
-                req.body.zipcode,
-                req.body.street,
-                req.body.creditcardcmp,
-                req.body.creditcardpan,
-                req.body.creditcardcvv            
+            req.body.username,
+            req.body.password,
+            req.body.email,
+            req.body.firstname,
+            req.body.lastname,
+            req.body.country,
+            req.body.city,
+            req.body.zipcode,
+            req.body.street,
+            req.body.creditcardcmp,
+            req.body.creditcardpan,
+            req.body.creditcardcvv
         ]
 
         app.queryDb(query, userdata).then(users => {
             res.redirect('/users');
         }).catch(err => {
-            next();
+            next(err);
         });
     });
 
     // delete a user
     app.delete('/users/:id', (req, res, next) => {
+        const query = "DELETE FROM users where id=?";
+
+        app.queryDb(query, req.params.id).then(users => {
+            res.redirect('/users');
+        }).catch(err => {
+            next(err);
+        });
     });
 }

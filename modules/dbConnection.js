@@ -8,12 +8,12 @@ module.exports.queryDb = (query, params) => {
       if (err) {
         console.log("dbConnection -> " + err);
         connection.release();
-        return reject(err)
+        return reject(err);
       }
 
       connection.query(query, params, (err, records) => {
         connection.release();
-        return resolve(records)
+        return (err ? reject(err) : resolve(records));
       });
 
       connection.on('error', err => {
