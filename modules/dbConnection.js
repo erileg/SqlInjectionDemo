@@ -11,14 +11,14 @@ module.exports.queryDb = (query, params) => {
         return reject(err);
       }
 
-      connection.query(query, params, (err, records) => {
-        connection.release();
-        return (err ? reject(err) : resolve(records));
-      });
-
       connection.on('error', err => {
         console.log("dbConnection -> " + err);
         return reject(err);
+      });
+
+      connection.query(query, params, (err, records) => {
+        connection.release();
+        return (err ? reject(err) : resolve(records));
       });
     });
   })
