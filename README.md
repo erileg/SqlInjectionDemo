@@ -15,3 +15,13 @@ $ npm install
 ```sh
 $ npm start
 ```
+
+## Production
+  * Install PM2
+```sh
+$ npm install -g PM2
+```
+  * Start Server via PM2
+```sh
+$ pm2 start npm --name "SQL Injection Demo" -- start 
+```
