@@ -4,6 +4,7 @@ block content
     h1.title= title
     div.box
         form(method='POST' action='/users')
+            input(type='hidden', name='id', value=user.id)
             div.form-group
             label(for='username') Username:
             input#username.form-control(type='text', placeholder='username', name='username', value=user.username)

@@ -3,17 +3,22 @@ extends layout
 block content
     h1.title= title
     div.box
+        a(href='/user'): img.icon-lg(src='/images/add_user.png') 
         div.table-responsiv
-            table.table.table-hover.table-striped
+            table.table.table-striped
                 thead.thead-inverse
                     tr
                         th Last Name
                         th First Name
                         th EMail
+                        th Edit
                 tbody
                     each user in users
                         tr 
                             td #{user.lastname}
                             td #{user.firstname} 
                             td #{user.email} 
-
+                            td
+                                a(href='/user/'+user.id): img.icon(src='/images/edit_user.png')
+                                a(href='/#'): img.icon(src='/images/remove_user.png') 
+ 

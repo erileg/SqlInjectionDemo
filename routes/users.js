@@ -15,6 +15,11 @@ module.exports = app => {
         });
     });
 
+    // new user
+    app.get('/user', (req, res, next) => {
+        res.render("useredit", { "title": "Edit", "user": {}});
+    });
+
     // edit user
     app.get('/user/:id', (req, res, next) => {
         const query = `SELECT * FROM users WHERE id = ?`;
