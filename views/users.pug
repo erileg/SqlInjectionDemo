@@ -8,9 +8,9 @@ block content
             table.table.table-striped
                 thead.thead-inverse
                     tr
-                        th Last Name
-                        th First Name
-                        th EMail
+                        th: a.simple(href="users?orderby=lastname") Last Name
+                        th: a.simple(href="users?orderby=firstname") First Name
+                        th: a.simple(href="users?orderby=email") EMail
                         th Edit
                 tbody
                     each user in users

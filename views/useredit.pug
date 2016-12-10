@@ -3,6 +3,7 @@ extends layout
 block content
     h1.title= title
     div.box
+        a(href='/users'): img.icon-lg(src='/images/user_group.png') 
         form(method='POST' action='/users')
             input(type='hidden', name='id', value=user.id)
             div.form-group
@@ -17,6 +18,7 @@ block content
             div.form-group
             label(for='email') Email:
             input#email.form-control(type='email', placeholder='mail@example.com', name='email', value=user.email)
+            small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
             div.form-group
             label(for='firstname') Firstname:
             input#firstname.form-control(type='text', placeholder='firstname', name='firstname', value=user.firstname)
