@@ -4,6 +4,11 @@ block content
     h1.title= title
     div.box
         a(href='/user'): img.icon-lg(src='/images/add_user.png') 
+        form.form-inline(method='GET' action='/users')
+            div.form-group
+                input#filter.form-control.input-lg(type='text', name='filter')
+                button.btn.btn-info(type='submit')
+                    span.glyphicon.glyphicon-search
         div.table-responsiv
             table.table.table-striped
                 thead.thead-inverse
