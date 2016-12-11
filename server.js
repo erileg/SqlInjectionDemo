@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // middleware for all requests
 require('./routes/all')(app);
 
-// init saleport routes
+// index route
 require('./routes/index')(app);
 
 // users
