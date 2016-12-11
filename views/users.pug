@@ -3,11 +3,11 @@ extends layout
 block content
     h1.title= title
     div.box
-        a(href='/user'): img.icon-lg(src='/images/add_user.png') 
-        form.form-inline(method='GET' action='/users')
+        form.form-inline-block.form-inline(method='GET' action='/users')
             div.form-group
                 input#filter.form-control.input-lg(type='text', name='filter', value=filter)
                 button.btn.btn-info(type='submit') Filter
+        a(href='/user'): img.icon-lg(src='/images/add_user.png') 
         div.table-responsiv
             table.table.table-striped
                 thead.thead-inverse
@@ -25,4 +25,3 @@ block content
                             td
                                 a(href='/user/'+user.id): img.icon(src='/images/edit_user.png')
                                 a(href='/#'): img.icon(src='/images/remove_user.png') 
- 

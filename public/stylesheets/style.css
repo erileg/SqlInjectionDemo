@@ -45,7 +45,11 @@ img.icon{
 }
 
 img.icon-lg{
-	width: 64px;
-	height: 64px;
-	margin: 10px;
+	width: 48px;
+	height: 48px;
+	margin: 5px 12px;
+}
+
+form.form-inline-block{
+	display: inline-block;
 }
