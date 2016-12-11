@@ -35,20 +35,7 @@ module.exports = app => {
 
     // create user
     app.post('/users', (req, res, next) => {
-        const query = `INSERT into users (
-            username,
-            password,
-            email,
-            firstname,
-            lastname,
-            country,
-            city,
-            zipcode,
-            street,
-            creditcardcmp,
-            creditcardpan,
-            creditcardcvv)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = req.body.id ? UPDATE_QUERY : SAVE_QUERY;
 
         const userdata = [
             req.body.username,
@@ -62,14 +49,16 @@ module.exports = app => {
             req.body.street,
             req.body.creditcardcmp,
             req.body.creditcardpan,
-            req.body.creditcardcvv
-        ]
+            req.body.creditcardcvv,
+            req.body.id
+        ];
 
         app.queryDb(query, userdata).then(users => {
             res.redirect('/users');
         }).catch(err => {
             next(err);
         });
+        
     });
 
     // delete a user
@@ -83,3 +72,36 @@ module.exports = app => {
         });
     });
 }
+
+const SAVE_QUERY =
+    `INSERT into users (
+        username,
+        password,
+        email,
+        firstname,
+        lastname,
+        country,
+        city,
+        zipcode,
+        street,
+        creditcardcmp,
+        creditcardpan,
+        creditcardcvv)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+
+const UPDATE_QUERY =
+    `UPDATE users SET
+        username = ?,
+        password = ?,
+        email = ?,
+        firstname = ?,
+        lastname = ?,
+        country = ?,
+        city = ?,
+        zipcode = ?,
+        street = ?,
+        creditcardcmp = ?,
+        creditcardpan = ?,
+        creditcardcvv = ?
+        WHERE id = ?`
