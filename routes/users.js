@@ -3,13 +3,15 @@ const mysql = require("mysql");
 module.exports = app => {
     // show all users
     app.get('/users', (req, res, next) => {
-        const filterClause = req.query.filter ? "INSTR(CONCAT(firstname, '|', lastname, '|', email), ?) > 0" : "true";
-        const orderCol = req.query.orderby || "lastname";
-        const query = `SELECT id, lastname, firstname, email FROM users WHERE ${filterClause} ORDER BY ${orderCol}`;
-        //console.log(`query: ${query}`);
+        const filterVal = req.query.filter;
+        const filterClause = filterVal ? "INSTR(CONCAT(firstname, '|', lastname, '|', email), ?) > 0" : "true";
 
-        app.queryDb(query, [req.query.filter]).then(users => {
-            res.render("users", { "title": "users", "users": users, "filter": req.query.filter });
+        const orderCol = req.query.orderby || "lastname";
+
+        const query = `SELECT id, lastname, firstname, email FROM users WHERE ${filterClause} ORDER BY ?`;
+
+        app.queryDb(query, [filterVal, orderCol]).then(users => {
+            res.render("users", { "title": "User List", "users": users, "filter": req.query.filter });
         }).catch(err => {
             next();
         });
@@ -17,7 +19,7 @@ module.exports = app => {
 
     // new user
     app.get('/user', (req, res, next) => {
-        res.render("useredit", { "title": "Edit", "user": {}});
+        res.render("useredit", { "title": "New User", "user": {}});
     });
 
     // edit user
@@ -26,7 +28,7 @@ module.exports = app => {
 
         app.queryDb(query, [req.params.id]).then(user => {
             const userData = user[0] || {};
-            res.render("useredit", { "title": "Edit", "user": userData});
+            res.render("useredit", { "title": "Edit User", "user": userData});
         }).catch(err => {
             next();
         });
