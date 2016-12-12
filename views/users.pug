@@ -14,9 +14,9 @@ block content
             table.table.table-striped.table.bordered
                 thead.thead-inverse
                     tr
-                        th: a.simple(href="users?orderby=lastname") Last Name
-                        th: a.simple(href="users?orderby=firstname") First Name
-                        th: a.simple(href="users?orderby=email") EMail
+                        th: a.simple(href="/users?orderby=lastname") Last Name
+                        th: a.simple(href="/users?orderby=firstname") First Name
+                        th: a.simple(href="/users?orderby=email") EMail
                         th.text-right Edit
                 tbody
                     each user in users
