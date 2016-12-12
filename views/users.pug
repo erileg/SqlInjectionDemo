@@ -6,17 +6,17 @@ block content
         form.form-inline-block.form-inline(method='GET' action='/users')
             div.form-group
                 input#filter.form-control.input-md(type='text', name='filter', value=filter)
-                button.btn.btn-info(type='submit')
-                    span.glyphicon.glyphicon-filter
+                button.btn.btn-info(type='submit') Filter
         a(href='/user'): img.icon-lg(src='/images/add_user.png') 
 
         div.table-responsiv
             table.table.table-striped.table.bordered
                 thead.thead-inverse
                     tr
-                        th: a.simple(href="/users?orderby=lastname") Last Name
-                        th: a.simple(href="/users?orderby=firstname") First Name
-                        th: a.simple(href="/users?orderby=email") EMail
+                        - var filterParam = filter ? '&filter=' + filter : ''
+                        th: a.simple(href='/users?orderby=lastname' + filterParam) Last Name
+                        th: a.simple(href='/users?orderby=firstname' + filterParam) First Name
+                        th: a.simple(href='/users?orderby=email' + filterParam) EMail
                         th.text-right Edit
                 tbody
                     each user in users

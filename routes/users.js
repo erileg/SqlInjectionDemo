@@ -7,17 +7,17 @@ module.exports = app => {
         let filterClause = "true";
         const queryParams = [];
 
-        if(filterVal){
+        if (filterVal) {
             filterClause = "INSTR(CONCAT(firstname, '|', lastname, '|', email), ?) > 0";
-            queryParams.push(filterVal);    
+            queryParams.push(filterVal);
         }
 
         const orderCol = req.query.orderby || "lastname";
         queryParams.push(orderCol);
 
-        const query = `SELECT id, lastname, firstname, email FROM users WHERE ${filterClause} ORDER BY ?`;
+        const query = `SELECT id, lastname, firstname, email FROM users WHERE ${filterClause} ORDER BY ??`;
 
-        app.queryDb(query,queryParams).then(users => {
+        app.queryDb(query, queryParams).then(users => {
             res.render("users", { "title": "User List", "users": users, "filter": req.query.filter });
         }).catch(err => {
             next();
@@ -26,7 +26,7 @@ module.exports = app => {
 
     // new user
     app.get('/user', (req, res, next) => {
-        res.render("useredit", { "title": "New User", "user": {}});
+        res.render("useredit", { "title": "New User", "user": {} });
     });
 
     // edit user
@@ -35,7 +35,7 @@ module.exports = app => {
 
         app.queryDb(query, [req.params.id]).then(user => {
             const userData = user[0] || {};
-            res.render("useredit", { "title": "Edit User", "user": userData});
+            res.render("useredit", { "title": "Edit User", "user": userData });
         }).catch(err => {
             next();
         });
@@ -67,7 +67,7 @@ module.exports = app => {
         }).catch(err => {
             next(err);
         });
-        
+
     });
 
     // delete a user
