@@ -4,7 +4,8 @@ module.exports = {
         "port": "3000"
     },
     "mysqlconfig": {
-        "host": 'raspberrypi.fritz.box',
+//        "host": 'raspberrypi.fritz.box',
+        "host": 'localhost',
         "user": 'spiff',
         "password": 'WJax2016',
         "database": 'hackme',
