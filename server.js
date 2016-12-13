@@ -3,7 +3,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-
+var morgan = require('morgan');
+ 
 require('console-stamp')(console, {
   pattern: 'dd.mm.yyyy HH:MM:ss',
   label: false,
@@ -29,8 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// middleware for all requests
-require('./routes/all')(app);
+// logging
+app.use(morgan('common'))
 
 // index route
 require('./routes/index')(app);
