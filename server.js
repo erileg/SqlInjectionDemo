@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // logging
-app.use(morgan('common'))
+app.use(morgan('common'));
 
 // index route
 require('./routes/index')(app);
