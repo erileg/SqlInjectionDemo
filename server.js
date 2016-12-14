@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // logging
-app.use(morgan('common'));
+app.use(morgan(':remote-addr - [:date[clf]] ":method :url HTTP/:http-version" :status :req[Accept] :res[content-length]'));
 
 // index route
 require('./routes/index')(app);
