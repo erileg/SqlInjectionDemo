@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-var morgan = require('morgan');
+const morgan = require('morgan');
  
 require('console-stamp')(console, {
   pattern: 'dd.mm.yyyy HH:MM:ss',
