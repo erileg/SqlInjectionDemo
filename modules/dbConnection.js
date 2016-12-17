@@ -6,13 +6,12 @@ module.exports.queryDb = (query, params) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       if (err) {
-        console.log("dbConnection -> " + err);
-        connection.release();
+        handleError(err, connection);
         return reject(err);
       }
 
       connection.on('error', err => {
-        console.log("dbConnection -> " + err);
+        handleError(err, connection);
         return reject(err);
       });
 
@@ -23,3 +22,10 @@ module.exports.queryDb = (query, params) => {
     });
   })
 };
+
+const handleError = function (err, connection, reject) {
+  console.log("dbConnection -> " + err);
+  if (connection) {
+    connection.release();
+  }
+}

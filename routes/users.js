@@ -1,5 +1,3 @@
-const mysql = require("mysql");
-
 module.exports = app => {
     // show all users
     app.get('/users', (req, res, next) => {
@@ -20,7 +18,7 @@ module.exports = app => {
         app.queryDb(query, queryParams).then(users => {
             res.render("users", { "title": "User List", "users": users, "filter": req.query.filter });
         }).catch(err => {
-            next();
+            next(err);
         });
     });
 
