@@ -35,7 +35,7 @@ module.exports = app => {
             const userData = user[0] || {};
             res.render("useredit", { "title": "Edit User", "user": userData });
         }).catch(err => {
-            next();
+            next(err);
         });
 
     });
