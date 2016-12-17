@@ -5,9 +5,6 @@
 
 body {
 	background-image: url("/images/bg.jpg");
-	background-color: steelblue; 
-	background-repeat: no-repeat;
-    background-position: center 0;
 	padding: 20px;
 	color:#2A4E77;
 	font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
