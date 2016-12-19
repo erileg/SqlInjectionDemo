@@ -6,8 +6,9 @@ module.exports = app => {
         const queryParams = [];
 
         if (filterVal) {
-            filterClause = "INSTR(CONCAT(firstname, '|', lastname, '|', email), ?) > 0";
-            queryParams.push(filterVal);
+            filterClause = `INSTR(CONCAT(firstname, '|', lastname, '|', email), "${filterVal}") > 0`;
+            //filterClause = "INSTR(CONCAT(firstname, '|', lastname, '|', email), ?) > 0";
+            //queryParams.push(filterVal);
         }
 
         const orderCol = req.query.orderby || "lastname";
