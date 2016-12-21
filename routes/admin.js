@@ -24,7 +24,7 @@ module.exports = app => {
         });
     });
 
-    // edit user
+    // user form
     app.get('/admin/users/:id', authorize, (req, res, next) => {
         const id = parseInt(req.params.id) || 0;
         if (id === 0) {
@@ -41,7 +41,7 @@ module.exports = app => {
         }
     });
 
-    // create user
+    // create/update user
     app.post('/admin/users', authorize, (req, res, next) => {
         const query = req.body.id ? UPDATE_QUERY : SAVE_QUERY;
 
