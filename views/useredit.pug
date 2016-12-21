@@ -3,8 +3,8 @@ extends layout
 block content
     h1.title= title
     div.box
-        a(href='/users'): img.icon-lg(src='/images/user_group.png') 
-        form(method='POST' action='/users')
+        a(href='/admin/users'): img.icon-lg(src='/images/user_group.png') 
+        form(method='POST' action='/admin/users')
             input(type='hidden', name='id', value=user.id)
             div.form-group
                 label(for='username') Username:

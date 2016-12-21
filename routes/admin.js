@@ -1,8 +1,8 @@
-const auth = require('../modules/basicAuth');
+const authorize = require('../modules/basicAuth').authorize;
 
 module.exports = app => {
     // show all users
-    app.get('/admin', auth, (req, res, next) => {
+    app.get('/admin/users', authorize, (req, res, next) => {
         const filterVal = req.query.filter;
         let filterClause = "true";
         const queryParams = [];
@@ -24,26 +24,25 @@ module.exports = app => {
         });
     });
 
-    // new user
-    app.get('/user', auth, (req, res, next) => {
-        res.render("useredit", { "title": "New User", "user": {} });
-    });
-
     // edit user
-    app.get('/user/:id', auth, (req, res, next) => {
-        const query = `SELECT * FROM users WHERE id = ?`;
+    app.get('/admin/users/:id', authorize, (req, res, next) => {
+        const id = parseInt(req.params.id) || 0;
+        if (id === 0) {
+            res.render("useredit", { "title": "New User", "user": {} });
+        } else {
+            const query = `SELECT * FROM users WHERE id = ?`;
 
-        app.queryDb(query, [req.params.id]).then(user => {
-            const userData = user[0] || {};
-            res.render("useredit", { "title": "Edit User", "user": userData });
-        }).catch(err => {
-            next(err);
-        });
-
+            app.queryDb(query, [id]).then(user => {
+                const userData = user[0] || {};
+                res.render("useredit", { "title": "Edit User", "user": userData });
+            }).catch(err => {
+                next(err);
+            });
+        }
     });
 
     // create user
-    app.post('/users', auth, (req, res, next) => {
+    app.post('/admin/users', authorize, (req, res, next) => {
         const query = req.body.id ? UPDATE_QUERY : SAVE_QUERY;
 
         const userdata = [
@@ -63,18 +62,18 @@ module.exports = app => {
         ];
 
         app.queryDb(query, userdata).then(users => {
-            res.redirect('/users');
+            res.redirect('/admin/users');
         }).catch(err => {
             next(err);
         });
     });
 
     // delete a user
-    app.delete('/users/:id', auth, (req, res, next) => {
+    app.delete('/admin/users/:id', authorize, (req, res, next) => {
         const query = "DELETE FROM users where id=?";
 
         app.queryDb(query, req.params.id).then(users => {
-            res.redirect('/users');
+            res.redirect('/admin/users');
         }).catch(err => {
             next(err);
         });
