@@ -16,6 +16,7 @@ module.exports.queryDb = (query, params) => {
       });
 
       connection.query(query, params, (err, records) => {
+        console.log("query: %s", query);
         connection.release();
         return (err ? reject(err) : resolve(records));
       });
