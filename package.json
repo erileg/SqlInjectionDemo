@@ -10,6 +10,7 @@
   "author": "erle",
   "private": true,
   "dependencies": {
+    "basic-auth": "^1.1.0",
     "body-parser": "^1.15.2",
     "console-stamp": "^0.2.4",
     "express": "^4.14.0",

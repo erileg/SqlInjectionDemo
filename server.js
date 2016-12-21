@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const morgan = require('morgan');
- 
+
 require('console-stamp')(console, {
   pattern: 'dd.mm.yyyy HH:MM:ss',
   label: false,
@@ -38,6 +38,9 @@ require('./routes/index')(app);
 
 // users
 require('./routes/users')(app);
+
+// users
+require('./routes/admin')(app);
 
 // error handling
 require('./routes/error')(app);

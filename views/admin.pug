@@ -3,11 +3,11 @@ extends layout
 block content
     h1.title= title
     div.box
-        form.form-inline-block.form-inline(method='GET' action='/users')
+        form.form-inline-block.form-inline(method='GET' action='/admin')
             div.form-group
                 input#filter.form-control.input-md(type='text', name='filter', value=filter)
                 button.btn.btn-info(type='submit') Filter
-        a(href='/admin'): img.icon-lg(src='/images/edit_user.png') 
+        a(href='/user'): img.icon-lg(src='/images/add_user.png') 
 
         div.table-responsiv
             table.table.table-striped.table.bordered
@@ -17,9 +17,13 @@ block content
                         th: a.simple(href='/users?orderby=lastname' + filterParam) Last Name
                         th: a.simple(href='/users?orderby=firstname' + filterParam) First Name
                         th: a.simple(href='/users?orderby=email' + filterParam) EMail
+                        th.text-right Edit
                 tbody
                     each user in users
                         tr 
                             td #{user.lastname}
                             td #{user.firstname} 
                             td #{user.email} 
+                            td.text-right
+                                a.simple(href='/user/'+user.id): img.icon(src='/images/edit_user.png')
+                                a.simple(href='/users#'): img.icon(src='/images/remove_user.png') 
