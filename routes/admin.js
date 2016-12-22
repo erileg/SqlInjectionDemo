@@ -34,7 +34,7 @@ module.exports = app => {
 
             app.queryDb(query, [id]).then(customer => {
                 const customerData = customer[0] || {};
-                res.render("customeredit", { "title": "Edit Customer", "customer": customerData });
+                res.render("edit_customer", { "title": "Edit Customer", "customer": customerData });
             }).catch(err => {
                 next(err);
             });
