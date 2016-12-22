@@ -1,0 +1,50 @@
+extends layout
+
+block content
+    h1.title= title
+    div.box
+        a(href='/admin/customers'): img.icon-lg(src='/images/customer_group.png') 
+        form(method='POST' action='/admin/customers')
+            input(type='hidden', name='id', value=customer.id)
+            div.form-group
+                label(for='customername') Username:
+                input#userrname.form-control(type='text', placeholder='username', name='userername', value=customer.userername)
+            div.form-group
+                label(for='pw') Password:
+                input#pw.form-control(type='password', name='password')
+            div.form-group
+                label(for='pw2') Confirm Password:
+                input#pw2.form-control(type='password', name='confirmPassword')
+            div.form-group
+                label(for='email') Email:
+                input#email.form-control(type='email', placeholder='mail@example.com', name='email', value=customer.email)
+                small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+            div.form-group
+                label(for='firstname') Firstname:
+                input#firstname.form-control(type='text', placeholder='firstname', name='firstname', value=customer.firstname)
+            div.form-group
+                label(for='lastname') Lastname:
+                input#lastname.form-control(type='text', placeholder='lastname', name='lastname', value=customer.lastname)
+            div.form-group
+                label(for='country') Country:
+                input#country.form-control(type='text', placeholder='country', name='country', value=customer.country)
+            div.form-group
+                label(for='city') City:
+                input#city.form-control(type='text', placeholder='city', name='city', value=customer.city)
+            div.form-group
+                label(for='zipcode') Zip Code:
+                input#zipcode.form-control(type='text', placeholder='zip code', name='zipcode', value=customer.zipcode)
+            div.form-group
+                label(for='street') Street:
+                input#street.form-control(type='text', placeholder='street', name='street', value=customer.street)
+            div.form-group
+                label(for='creditcardcmp') Creditcard Company:
+                input#creditcardcmp.form-control(type='text', placeholder='Mastercard, Visa, etc.', name='creditcardcmp', value=customer.creditcardcmp)
+            div.form-group
+                label(for='creditcardpan') Creditcard Pan:
+                input#creditcardpan.form-control(type='text', placeholder='5454545454545454', name='creditcardpan', value=customer.creditcardpan)
+            div.form-group
+                label(for='creditcardcvv') Creditcard CVV:
+                input#creditcardcvv.form-control(type='text', placeholder='123', name='creditcardcvv', value=customer.creditcardcvv)
+            br
+            button.btn.btn-primary.btn-lg(type='submit') Save

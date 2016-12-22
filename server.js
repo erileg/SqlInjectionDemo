@@ -36,10 +36,10 @@ app.use(morgan(':remote-addr - [:date[clf]] ":method :url HTTP/:http-version" :s
 // index route
 require('./routes/index')(app);
 
-// users
-require('./routes/users')(app);
+// customers
+require('./routes/customers')(app);
 
-// users
+// customers
 require('./routes/admin')(app);
 
 // error handling

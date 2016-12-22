@@ -1,8 +1,8 @@
 const authorize = require('../modules/basicAuth').authorize;
 
 module.exports = app => {
-    // show all users
-    app.get('/admin/users', authorize, (req, res, next) => {
+    // show all customers
+    app.get('/admin/customers', authorize, (req, res, next) => {
         const filterVal = req.query.filter;
         let filterClause = "true";
         const queryParams = [];
@@ -15,37 +15,37 @@ module.exports = app => {
         const orderCol = req.query.orderby || "lastname";
         queryParams.push(orderCol);
 
-        const query = `SELECT id, lastname, firstname, email FROM users WHERE ${filterClause} ORDER BY ??`;
+        const query = `SELECT id, lastname, firstname, email FROM customers WHERE ${filterClause} ORDER BY ??`;
 
-        app.queryDb(query, queryParams).then(users => {
-            res.render("admin", { "title": "User List", "users": users, "filter": req.query.filter });
+        app.queryDb(query, queryParams).then(customers => {
+            res.render("admin", { "title": "Customer List", "customers": customers, "filter": req.query.filter });
         }).catch(err => {
             next(err);
         });
     });
 
-    // user form
-    app.get('/admin/users/:id', authorize, (req, res, next) => {
+    // customer form
+    app.get('/admin/customers/:id', authorize, (req, res, next) => {
         const id = parseInt(req.params.id) || 0;
         if (id === 0) {
-            res.render("useredit", { "title": "New User", "user": {} });
+            res.render("customeredit", { "title": "New Customer", "customer": {} });
         } else {
-            const query = `SELECT * FROM users WHERE id = ?`;
+            const query = `SELECT * FROM customers WHERE id = ?`;
 
-            app.queryDb(query, [id]).then(user => {
-                const userData = user[0] || {};
-                res.render("useredit", { "title": "Edit User", "user": userData });
+            app.queryDb(query, [id]).then(customer => {
+                const customerData = customer[0] || {};
+                res.render("customeredit", { "title": "Edit Customer", "customer": customerData });
             }).catch(err => {
                 next(err);
             });
         }
     });
 
-    // create/update user
-    app.post('/admin/users', authorize, (req, res, next) => {
+    // create/update customer
+    app.post('/admin/customers', authorize, (req, res, next) => {
         const query = req.body.id ? UPDATE_QUERY : SAVE_QUERY;
 
-        const userdata = [
+        const customerdata = [
             req.body.username,
             req.body.password,
             req.body.email,
@@ -61,19 +61,19 @@ module.exports = app => {
             req.body.id
         ];
 
-        app.queryDb(query, userdata).then(users => {
-            res.redirect('/admin/users');
+        app.queryDb(query, customerdata).then(customers => {
+            res.redirect('/admin/customers');
         }).catch(err => {
             next(err);
         });
     });
 
-    // delete a user
-    app.delete('/admin/users/:id', authorize, (req, res, next) => {
-        const query = "DELETE FROM users where id=?";
+    // delete a customer
+    app.delete('/admin/customers/:id', authorize, (req, res, next) => {
+        const query = "DELETE FROM customers where id=?";
 
-        app.queryDb(query, req.params.id).then(users => {
-            res.redirect('/admin/users');
+        app.queryDb(query, req.params.id).then(customers => {
+            res.redirect('/admin/customers');
         }).catch(err => {
             next(err);
         });
@@ -81,7 +81,7 @@ module.exports = app => {
 }
 
 const SAVE_QUERY =
-    `INSERT into users (
+    `INSERT into customers (
         username,
         password,
         email,
@@ -98,7 +98,7 @@ const SAVE_QUERY =
 
 
 const UPDATE_QUERY =
-    `UPDATE users SET
+    `UPDATE customers SET
         username = ?,
         password = ?,
         email = ?,
