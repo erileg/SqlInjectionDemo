@@ -4,7 +4,7 @@
 }
 
 body {
-	background-image: url("/images/bg.jpg");
+	background: linear-gradient(to right, lightskyblue , gray);
 	padding: 20px;
 	color:#2A4E77;
 	font-family: "Lucida Grande", Helvetica, Arial, sans-serif;

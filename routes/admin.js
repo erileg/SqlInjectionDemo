@@ -4,21 +4,21 @@ module.exports = app => {
     // show all customers
     app.get('/admin/customers', authorize, (req, res, next) => {
         const filterVal = req.query.filter;
-        let filterClause = "true";
+        let filterClause = 'true';
         const queryParams = [];
 
         if (filterVal) {
-            filterClause = "INSTR(CONCAT(username, '|', role, '|', firstname, '|', lastname, '|', email), ?) > 0";
+            filterClause = `INSTR(CONCAT(username, '|', role, '|', firstname, '|', lastname, '|', email), ?) > 0`;
             queryParams.push(filterVal);
         }
 
-        const orderCol = req.query.orderby || "lastname";
+        const orderCol = req.query.orderby || 'lastname';
         queryParams.push(orderCol);
 
         const query = `SELECT id, username, role, lastname, firstname, email FROM customers WHERE ${filterClause} ORDER BY ??`;
 
         app.queryDb(query, queryParams).then(customers => {
-            res.render("customers", { "title": "Admin Customer List", "customers": customers, "filter": req.query.filter, mode: "admin" });
+            res.render('customers', { "title": "Admin Customer List", "customers": customers, "filter": req.query.filter, mode: "admin" });
         }).catch(err => {
             next(err);
         });
@@ -27,14 +27,15 @@ module.exports = app => {
     // customer form
     app.get('/admin/customers/:id', authorize, (req, res, next) => {
         const id = parseInt(req.params.id) || 0;
+        const template = 'edit_customer';
         if (id === 0) {
-            res.render("customeredit", { "title": "New Customer", "customer": {} });
+            res.render(template, { "title": "New Customer", "customer": {} });
         } else {
             const query = `SELECT * FROM customers WHERE id = ?`;
 
             app.queryDb(query, [id]).then(customer => {
                 const customerData = customer[0] || {};
-                res.render("edit_customer", { "title": "Edit Customer", "customer": customerData });
+                res.render(template, { "title": "Edit Customer", "customer": customerData });
             }).catch(err => {
                 next(err);
             });
