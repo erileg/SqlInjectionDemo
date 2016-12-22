@@ -15,7 +15,7 @@ block content
             div.form-group
                 label(for='role') Role:
                 select#role.form-control.select(name='role', value=customer.role)
-                    option(value="ADMIN", selected= customer.role == 'ADMIN') Administrator
+                    option(value="ADMINISTRATOR", selected= customer.role == 'ADMINISTRATOR') Administrator
                     option(value="CUSTOMER", selected= customer.role == 'CUSTOMER') Customer
             div.form-group
                 label(for='pw2') Confirm Password:

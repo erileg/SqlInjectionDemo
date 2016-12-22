@@ -453,7 +453,7 @@ VALUES
 
 INSERT INTO `customers` (`id`, `username`, `password`, `role`, `email`, `firstname`, `lastname`, `country`, `city`, `zipcode`, `street`, `creditcardcmp`, `creditcardpan`, `creditcardcvv`)
 VALUES
-	(101,'admin','*392B2AC8642DBA4DD6477A52D1803810DCACD219','ADMIN','luke@deathstar.example.com','Luke','Skywalker','Tatooine','Mos Eisley','1138','42, Dusty Road, Mos Eisley Cantina',NULL,NULL,NULL);
+	(101,'admin','*392B2AC8642DBA4DD6477A52D1803810DCACD219','ADMINISTRATOR','luke@deathstar.example.com','Luke','Skywalker','Tatooine','Mos Eisley','1138','42, Dusty Road, Mos Eisley Cantina',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
