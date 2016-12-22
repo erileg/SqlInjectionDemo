@@ -3,23 +3,38 @@ extends layout
 block content
     h1.title= title
     div.box
-        form.form-inline-block.form-inline(method='GET' action='/customers')
+        form.form-inline-block.form-inline(method='GET' action='/admin/customers')
             div.form-group
                 input#filter.form-control.input-md(type='text', name='filter', value=filter)
                 button.btn.btn-info(type='submit') Filter
-        a(href='/admin/customers'): img.icon-lg(src='/images/edit_customer.png') 
+        if mode == "admin"
+            a(href='/admin/customers/0'): img.icon-lg(src='/images/add_customer.png') 
+        else
+            a(href='/admin/customers'): img.icon-lg(src='/images/edit_customer.png') 
 
         div.table-responsiv
             table.table.table-striped.table.bordered
                 thead.thead-inverse
                     tr
                         - var filterParam = filter ? '&filter=' + filter : ''
-                        th: a.simple(href='/customers?orderby=lastname' + filterParam) Last Name
-                        th: a.simple(href='/customers?orderby=firstname' + filterParam) First Name
-                        th: a.simple(href='/customers?orderby=email' + filterParam) EMail
+                        th: a.simple(href='/admin/customers?orderby=username' + filterParam) Username
+                        if mode == "admin"
+                            th: a.simple(href='/admin/customers?orderby=username' + filterParam) Role
+                        th: a.simple(href='/admin/customers?orderby=lastname' + filterParam) Lastname
+                        th: a.simple(href='/admin/customers?orderby=firstname' + filterParam) Firstname
+                        th: a.simple(href='/admin/customers?orderby=email' + filterParam) EMail
+                        if mode == "admin"
+                            th.text-right Edit
                 tbody
                     each customer in customers
                         tr 
+                            td #{customer.username}
+                            if mode == "admin"
+                                td #{customer.role}
                             td #{customer.lastname}
                             td #{customer.firstname} 
                             td #{customer.email} 
+                            if mode == "admin"
+                                td.text-right
+                                    a.simple(href='/admin/customers/'+customer.id): img.icon(src='/images/edit_customer.png')
+                                    a.simple(href='/admin/customers#'): img.icon(src='/images/remove_customer.png') 

@@ -8,17 +8,17 @@ module.exports = app => {
         const queryParams = [];
 
         if (filterVal) {
-            filterClause = "INSTR(CONCAT(firstname, '|', lastname, '|', email), ?) > 0";
+            filterClause = "INSTR(CONCAT(username, '|', role, '|', firstname, '|', lastname, '|', email), ?) > 0";
             queryParams.push(filterVal);
         }
 
         const orderCol = req.query.orderby || "lastname";
         queryParams.push(orderCol);
 
-        const query = `SELECT id, lastname, firstname, email FROM customers WHERE ${filterClause} ORDER BY ??`;
+        const query = `SELECT id, username, role, lastname, firstname, email FROM customers WHERE ${filterClause} ORDER BY ??`;
 
         app.queryDb(query, queryParams).then(customers => {
-            res.render("admin", { "title": "Customer List", "customers": customers, "filter": req.query.filter });
+            res.render("customers", { "title": "Admin Customer List", "customers": customers, "filter": req.query.filter, mode: "admin" });
         }).catch(err => {
             next(err);
         });

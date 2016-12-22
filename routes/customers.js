@@ -6,18 +6,18 @@ module.exports = app => {
         const queryParams = [];
 
         if (filterVal) {
-            filterClause = `INSTR(CONCAT(firstname, '|', lastname, '|', email), "${filterVal}") > 0`;
-            //filterClause = "INSTR(CONCAT(firstname, '|', lastname, '|', email), ?) > 0";
+            filterClause = `INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), "${filterVal}") > 0`;
+            //filterClause = "INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), ?) > 0";
             //queryParams.push(filterVal);
         }
 
         const orderCol = req.query.orderby || "lastname";
         queryParams.push(orderCol);
 
-        const query = `SELECT id, lastname, firstname, email FROM customers WHERE ${filterClause} ORDER BY ??`;
+        const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' AND ${filterClause} ORDER BY ??`;
 
         app.queryDb(query, queryParams).then(customers => {
-            res.render("customers", { "title": "Customer List", "customers": customers, "filter": req.query.filter });
+            res.render("customers", { "title": "Customer List", "customers": customers, "filter": req.query.filter, mode: "view" });
         }).catch(err => {
             next(err);
         });
