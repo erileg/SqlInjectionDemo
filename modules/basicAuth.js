@@ -1,7 +1,7 @@
 const basicAuth = require('basic-auth');
 
 module.exports.authorize = (req, res, next) => {
-    const unauthorized = res => {
+    const unauthorized = function(res) {
         res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
         return res.sendStatus(401);
     };
