@@ -7,10 +7,9 @@ module.exports = (app, passport) => {
 
 	app.post('/login', passport.authenticate('local', {
 		successReturnToOrRedirect: '/',
-		failureRedirect: '/login',
-		failureFlash: true
+		failureRedirect: '/login'
 	}));
-	
+
 	app.get("/logout", (req, res) => {
 		req.logout();
 		res.redirect('/customers');
