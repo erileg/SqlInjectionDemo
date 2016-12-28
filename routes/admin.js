@@ -1,8 +1,6 @@
-const authorize = require('../modules/basicAuth').authorize;
-
-module.exports = app => {
+module.exports = (app, ensureLoggedIn) => {
     // show all customers
-    app.get('/admin/customers', authorize, (req, res, next) => {
+    app.get('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
         const filterVal = req.query.filter;
         let filterClause = 'true';
         const queryParams = [];
@@ -25,7 +23,7 @@ module.exports = app => {
     });
 
     // customer form
-    app.get('/admin/customers/:id', authorize, (req, res, next) => {
+    app.get('/admin/customers/:id', ensureLoggedIn('/login'), (req, res, next) => {
         const id = parseInt(req.params.id) || 0;
         const template = 'edit_customer';
         if (id === 0) {
@@ -43,7 +41,7 @@ module.exports = app => {
     });
 
     // create/update customer
-    app.post('/admin/customers', authorize, (req, res, next) => {
+    app.post('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
         const query = req.body.id ? UPDATE_QUERY : SAVE_QUERY;
 
         const customerdata = [
@@ -70,7 +68,7 @@ module.exports = app => {
     });
 
     // delete a customer
-    app.delete('/admin/customers/:id', authorize, (req, res, next) => {
+    app.delete('/admin/customers/:id', ensureLoggedIn('/login'), (req, res, next) => {
         const query = "DELETE FROM customers where id=?";
 
         app.queryDb(query, req.params.id).then(customers => {
