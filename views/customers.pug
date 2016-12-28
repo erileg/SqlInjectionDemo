@@ -8,10 +8,10 @@ block content
                 input#filter.form-control.input-md(type='text', name='filter', value=filter)
                 button.btn.btn-info(type='submit') Filter
         if mode == "admin"
-            a(href='/admin/customers/0'): img.icon-lg(src='/images/add_customer.png') 
-            a(href='/logout'): img.icon-lg(src='/images/logout.png') 
+            a(href='/admin/customers/0', title='Add Customer'): img.icon-lg(src='/images/add_customer.png') 
+            a(href='/logout', title='Logout'): img.icon-lg(src='/images/logout.png') 
         else
-            a(href='/admin/customers'): img.icon-lg(src='/images/edit_customer.png') 
+            a(href='/admin/customers', title='Edit Customer'): img.icon-lg(src='/images/edit_customer.png') 
 
         div.table-responsiv
             table.table.table-striped.table.bordered

@@ -49,9 +49,6 @@ LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
 
 INSERT INTO `customers` (`id`, `username`, `password`, `role`, `email`, `firstname`, `lastname`, `country`, `city`, `zipcode`, `street`, `creditcardcmp`, `creditcardpan`, `creditcardcvv`)
-VALUES;
-
-INSERT INTO `customers` (`id`, `username`, `password`, `role`, `email`, `firstname`, `lastname`, `country`, `city`, `zipcode`, `street`, `creditcardcmp`, `creditcardpan`, `creditcardcvv`)
 VALUES
 	(1,'1603120997299','RCC80KGB3JJ','CUSTOMER','mattis@orcitincidunt.com','Raven','Monroe','Poland','Spaniard\'s Bay','186842','Ap #992-1500 Pellentesque St.','MasterCard','3468 305397 41168','967');
 

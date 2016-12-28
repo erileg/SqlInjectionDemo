@@ -3,12 +3,12 @@ extends layout
 block content
     h1.title= title
     div.box
-        a(href='/admin/customers'): img.icon-lg(src='/images/customer_group.png') 
+        a(href='/admin/customers', title='List Customers'): img.icon-lg(src='/images/customer_group.png') 
         form(method='POST' action='/admin/customers')
             input(type='hidden', name='id', value=customer.id)
             div.form-group
                 label(for='customername') Username:
-                input#userrname.form-control(type='text', placeholder='username', name='userername', value=customer.userername)
+                input#username.form-control(type='text', placeholder='username', name='username', value=customer.username)
             div.form-group
                 label(for='pw') Password:
                 input#pw.form-control(type='password', name='password')
