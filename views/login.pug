@@ -3,10 +3,7 @@ extends layout
 block content
     h1.title= title 
     div.box
-        form(role='form', action="/login",method="post", style='max-width: 300px;')       
+        form(role='form', action="/login",method="post")       
             input.form-control(type='text', name='username', placeholder='Username', required='true', autofocus='true')
             input.form-control(type='password' name='password', placeholder='Password', required='true')      
-            label.checkbox
-                input#rememberMe(type='checkbox', value='remember-me', name='rememberMe')
-                span.text-primary Remember me
             button.btn.btn-lg.btn-primary.btn-block(type='submit') login
