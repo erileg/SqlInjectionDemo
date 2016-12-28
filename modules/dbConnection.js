@@ -15,11 +15,12 @@ module.exports.queryDb = (query, params) => {
         return reject(err);
       });
 
-      connection.query(query, params, (err, records) => {
-        console.log("query: %s", query);
+      const sqlQuery = connection.query(query, params, (err, records) => {
         connection.release();
         return (err ? reject(err) : resolve(records));
       });
+      
+      console.log("query: %s", sqlQuery.sql);
     });
   })
 };
