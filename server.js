@@ -21,7 +21,6 @@ require('console-stamp')(console, {
   }
 });
 
-
 // register MySql query function in app obejct
 app.queryDb = require('./modules/dbConnection').queryDb;
 

@@ -42,11 +42,12 @@ module.exports = (app, ensureLoggedIn) => {
 
     // create/update customer
     app.post('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
-        const query = req.body.id ? UPDATE_QUERY : SAVE_QUERY;
-
-        const customerdata = [
+        let query = SAVE_QUERY;
+        
+        const customerData = [
             req.body.username,
             req.body.password,
+            req.body.role,
             req.body.email,
             req.body.firstname,
             req.body.lastname,
@@ -56,11 +57,15 @@ module.exports = (app, ensureLoggedIn) => {
             req.body.street,
             req.body.creditcardcmp,
             req.body.creditcardpan,
-            req.body.creditcardcvv,
-            req.body.id
+            req.body.creditcardcvv
         ];
 
-        app.queryDb(query, customerdata).then(customers => {
+        if(req.body.id){
+            query = UPDATE_QUERY;
+            customerData.push(req.body.id);
+        }
+        
+        app.queryDb(query, customerData).then(customers => {
             res.redirect('/admin/customers');
         }).catch(err => {
             next(err);
@@ -83,6 +88,7 @@ const SAVE_QUERY =
     `INSERT into customers (
         username,
         password,
+        role,
         email,
         firstname,
         lastname,
@@ -93,13 +99,14 @@ const SAVE_QUERY =
         creditcardcmp,
         creditcardpan,
         creditcardcvv)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
 
 const UPDATE_QUERY =
     `UPDATE customers SET
         username = ?,
         password = ?,
+        role = ?,
         email = ?,
         firstname = ?,
         lastname = ?,
