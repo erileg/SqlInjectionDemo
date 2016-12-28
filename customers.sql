@@ -50,6 +50,10 @@ LOCK TABLES `customers` WRITE;
 
 INSERT INTO `customers` (`id`, `username`, `password`, `role`, `email`, `firstname`, `lastname`, `country`, `city`, `zipcode`, `street`, `creditcardcmp`, `creditcardpan`, `creditcardcvv`)
 VALUES
+	(0,'admin','*392B2AC8642DBA4DD6477A52D1803810DCACD219','ADMINISTRATOR','luke@deathstar.example.com','Luke','Skywalker','Tatooine','Mos Eisley','1138','42, Dusty Road, Mos Eisley Cantina',NULL,NULL,NULL);
+
+INSERT INTO `customers` (`id`, `username`, `password`, `role`, `email`, `firstname`, `lastname`, `country`, `city`, `zipcode`, `street`, `creditcardcmp`, `creditcardpan`, `creditcardcvv`)
+VALUES
 	(1,'1603120997299','RCC80KGB3JJ','CUSTOMER','mattis@orcitincidunt.com','Raven','Monroe','Poland','Spaniard\'s Bay','186842','Ap #992-1500 Pellentesque St.','MasterCard','3468 305397 41168','967');
 
 INSERT INTO `customers` (`id`, `username`, `password`, `role`, `email`, `firstname`, `lastname`, `country`, `city`, `zipcode`, `street`, `creditcardcmp`, `creditcardpan`, `creditcardcvv`)
@@ -447,10 +451,6 @@ VALUES
 INSERT INTO `customers` (`id`, `username`, `password`, `role`, `email`, `firstname`, `lastname`, `country`, `city`, `zipcode`, `street`, `creditcardcmp`, `creditcardpan`, `creditcardcvv`)
 VALUES
 	(100,'1672020610599','BHB65XRS5NA','CUSTOMER','pharetra.nibh@apurusDuis.com','Deborah','Ramos','Qatar','Casole d\'Elsa','992130','P.O. Box 105, 2547 Purus. Ave','MasterCard','377128115749578','994');
-
-INSERT INTO `customers` (`id`, `username`, `password`, `role`, `email`, `firstname`, `lastname`, `country`, `city`, `zipcode`, `street`, `creditcardcmp`, `creditcardpan`, `creditcardcvv`)
-VALUES
-	(101,'admin','*392B2AC8642DBA4DD6477A52D1803810DCACD219','ADMINISTRATOR','luke@deathstar.example.com','Luke','Skywalker','Tatooine','Mos Eisley','1138','42, Dusty Road, Mos Eisley Cantina',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;

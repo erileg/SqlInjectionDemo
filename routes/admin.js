@@ -24,9 +24,10 @@ module.exports = (app, ensureLoggedIn) => {
 
     // customer form
     app.get('/admin/customers/:id', ensureLoggedIn('/login'), (req, res, next) => {
-        const id = parseInt(req.params.id) || 0;
         const template = 'edit_customer';
-        if (id === 0) {
+        let id = parseInt(req.params.id);
+
+        if (isNaN(id)) {
             res.render(template, { "title": "New Customer", "customer": {} });
         } else {
             const query = `SELECT * FROM customers WHERE id = ?`;
@@ -43,7 +44,7 @@ module.exports = (app, ensureLoggedIn) => {
     // create/update customer
     app.post('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
         let query = SAVE_QUERY;
-        
+
         const customerData = [
             req.body.username,
             req.body.password,
@@ -60,11 +61,11 @@ module.exports = (app, ensureLoggedIn) => {
             req.body.creditcardcvv
         ];
 
-        if(req.body.id){
+        if (req.body.id) {
             query = UPDATE_QUERY;
             customerData.push(req.body.id);
         }
-        
+
         app.queryDb(query, customerData).then(customers => {
             res.redirect('/admin/customers');
         }).catch(err => {
