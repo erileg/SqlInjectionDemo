@@ -38,5 +38,17 @@ block content
                             td.email #{customer.email} 
                             if mode == 'admin'
                                 td.nowrap.text-right
-                                    a.simple(href='/admin/customers/'+customer.id): img.icon(src='/images/edit_customer.png')
-                                    a.simple(href='/admin/customers#'): img.icon(src='/images/remove_customer.png') 
+                                    a.simple(href='/admin/customers/' + customer.id, title='Edit'): img.icon(src='/images/edit_customer.png')
+                                    a.simple(href='#', onclick='deleteCustomer(' + customer.id + '); return false;' , title='Delete'): img.icon(src='/images/remove_customer.png') 
+    script.
+        var deleteCustomer = function(id){
+            confirm('Are you sure you want to delete"' + id + '"?');
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(e) {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    location.reload();
+                }
+            }
+            xhr.open('DELETE', '/admin/customers/' + id, true);
+            xhr.send();
+        }

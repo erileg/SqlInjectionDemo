@@ -78,7 +78,7 @@ module.exports = (app, ensureLoggedIn) => {
         const query = "DELETE FROM customers where id=?";
 
         app.queryDb(query, req.params.id).then(customers => {
-            res.redirect('/admin/customers');
+            res.status(200).send();
         }).catch(err => {
             next(err);
         });
