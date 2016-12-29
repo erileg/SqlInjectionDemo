@@ -37,6 +37,6 @@ block content
                             td #{customer.firstname} 
                             td.email #{customer.email} 
                             if mode == 'admin'
-                                td.text-right
+                                td.nowrap.text-right
                                     a.simple(href='/admin/customers/'+customer.id): img.icon(src='/images/edit_customer.png')
                                     a.simple(href='/admin/customers#'): img.icon(src='/images/remove_customer.png') 
