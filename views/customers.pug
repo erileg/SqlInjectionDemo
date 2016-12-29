@@ -14,7 +14,7 @@ block content
         else
             a(href='/admin/customers', title='Edit Customer'): img.icon-lg(src='/images/edit_customer.png') 
 
-        div.table-responsiv
+        div.table-responsive
             table.table.table-striped.table.bordered
                 thead.thead-inverse
                     tr
@@ -24,7 +24,7 @@ block content
                             th: a.simple(href='/admin/customers?orderby=username' + filterParam) Role
                         th: a.simple(href='/admin/customers?orderby=lastname' + filterParam) Lastname
                         th: a.simple(href='/admin/customers?orderby=firstname' + filterParam) Firstname
-                        th: a.simple(href='/admin/customers?orderby=email' + filterParam) EMail
+                        th.email: a.simple(href='/admin/customers?orderby=email' + filterParam) EMail
                         if mode == 'admin'
                             th.text-right Edit
                 tbody
@@ -35,7 +35,7 @@ block content
                                 td(title=customer.role) #{customer.role.charAt(0)}
                             td #{customer.lastname}
                             td #{customer.firstname} 
-                            td #{customer.email} 
+                            td.email #{customer.email} 
                             if mode == 'admin'
                                 td.text-right
                                     a.simple(href='/admin/customers/'+customer.id): img.icon(src='/images/edit_customer.png')
