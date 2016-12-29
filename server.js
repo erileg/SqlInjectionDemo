@@ -3,7 +3,7 @@ const
   express = require('express'),
   favicon = require('serve-favicon'),
   express_session = require('express-session'),
-  passport = require('./modules/passport'),
+  passport = require('passport'),
   ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
   app = express(),
   bodyParser = require('body-parser'),
@@ -34,8 +34,6 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 // required for passport
 app.use(express_session({ secret: 'lolwut', resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
 
 // body parser
 app.use(bodyParser.json());
@@ -44,6 +42,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // logging
 app.use(morgan(':remote-addr - [:date[clf]] ":method :url HTTP/:http-version" :status :req[Accept] :res[content-length]'));
 
+// initialize passport
+require('./modules/passport')(app, passport);
 // index route
 require('./routes/login')(app, passport);
 

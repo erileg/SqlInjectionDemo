@@ -1,29 +1,24 @@
 const
-  passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy;
+  LocalStrategy = require('passport-local').Strategy,
+  query = `SELECT id FROM customers WHERE username=? AND PASSWORD(?)=password`;
 
-const users = [
-  {
-    "id": 0,
-    "username": "admin",
-    "passwort": "imperator",
-    "role": "ADMINSTRATOR"
-  }
-]
+module.exports = (app, passport) => {
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
+  passport.serializeUser(function (user, done) {
+    done(null, user.id);
+  });
 
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
+  passport.deserializeUser(function (id, done) {
+    done(null, { "id": id });
+  });
 
-passport.deserializeUser(function (id, done) {
-  done(null, users[0]);
-});
-
-passport.use(new LocalStrategy((username, password, done) => {
-  if (username == 'admin' && password == 'imperator') {
-    return done(null, users[0]);
-  }
-  return done(null, false)
-}));
-
-module.exports = passport;
+  passport.use(new LocalStrategy((username, password, done) => {
+    app.queryDb(query, [username, password]).then(customers => {
+      return done(null, { "id": customers[0].id });
+    }).catch(err => {
+      return done(null, false)
+    });
+  }));
+}
