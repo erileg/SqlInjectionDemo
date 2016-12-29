@@ -7,10 +7,10 @@ block content
             table.table.table-hover.table-striped
                 thead.thead-inverse
                     tr
-                        th Url
                         th Method
+                        th Url
                 tbody
                     each route in routes
                         tr
-                            td: a.simple(href=route.url) #{route.url} 
                             td=route.method 
+                            td: a.simple(href=route.url) #{route.url} 
