@@ -3,6 +3,10 @@
     src: url("/fonts/Simpsons.ttf") format("truetype");
 }
 
+html {
+  font-size: 20px;
+}
+
 body {
 	background: linear-gradient(to right, lightskyblue , #2053aD);
 	padding: 20px;
