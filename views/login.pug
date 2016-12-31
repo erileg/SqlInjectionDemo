@@ -1,7 +1,6 @@
 extends layout
 
 block content
-    h1.title= title 
     div.box
         form(role='form', action="/login",method="post")       
             input.form-control(type='text', name='username', placeholder='Username', required='true', autofocus='true')

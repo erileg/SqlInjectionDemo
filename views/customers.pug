@@ -1,7 +1,6 @@
 extends layout
 
 block content
-    h1.title= title
     div.box
         - var actionUrl = (mode == 'admin') ? '/admin/customers' : '/customers'
         form.form-inline-block.form-inline(method='GET' action=actionUrl)
