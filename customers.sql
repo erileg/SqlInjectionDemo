@@ -29,7 +29,7 @@ CREATE TABLE `customers` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(13) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `role` enum('Adminstartor','Customer') DEFAULT 'Customer',
+  `role` enum('Administrator','Customer') DEFAULT 'Customer',
   `email` varchar(255) DEFAULT NULL,
   `firstname` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) DEFAULT NULL,

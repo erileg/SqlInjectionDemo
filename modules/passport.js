@@ -1,6 +1,6 @@
 const
   LocalStrategy = require('passport-local').Strategy,
-  userQuery = `SELECT id FROM customers WHERE username=? AND PASSWORD(?)=password AND role='ADMINSTRATOR'`;
+  userQuery = `SELECT id FROM customers WHERE username=? AND PASSWORD(?)=password AND role='Administrator'`;
 
 module.exports = (app, passport) => {
   app.use(passport.initialize());
