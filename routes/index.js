@@ -4,8 +4,8 @@ module.exports = app => {
 			return r.route && r.route.path && r.route.path !== "/";
 		}).map(r => {
 			return {
-				url: `${req.protocol}://${req.hostname}:${req.socket.localPort}${r.route.path}`,
-				method: Object.keys(r.route.methods)[0].toUpperCase()
+				"method": Object.keys(r.route.methods)[0].toUpperCase(),
+				"url": `${req.protocol}://${req.hostname}:${req.socket.localPort}${r.route.path}`
 			};
 		});
 
