@@ -22,7 +22,7 @@ module.exports.queryDb = (query, params) => {
                 return (err ? reject(err) : resolve(records));
             });
 
-            logger.info('query: %s', sqlQuery.sql);
+            logger.info('queryDb -> %s', sqlQuery.sql);
         });
     })
 };
