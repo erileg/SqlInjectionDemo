@@ -12,7 +12,6 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "connect-ensure-login": "^0.1.1",
-    "console-stamp": "^0.2.4",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "morgan": "^1.7.0",
@@ -20,6 +19,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pug": "^2.0.0-beta6",
-    "serve-favicon": "^2.3.2"
+    "serve-favicon": "^2.3.2",
+    "winston": "^2.3.0"
   }
 }
