@@ -2,7 +2,7 @@ extends layout
 
 block content
     div.box
-        a(href='/admin/customers', title='List Customers'): img.icon-lg(src='/images/customer_group.png') 
+        a(href='/admin/customers', title='List Customers'): img.icon-lg(alt='List Customers', src='/images/customer_group.png') 
         form(method='POST' action='/admin/customers')
             input(type='hidden', name='id', value=customer.id)
             div.form-group
