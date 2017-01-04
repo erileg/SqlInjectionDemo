@@ -29,7 +29,7 @@ app.set('view engine', 'pug');
 app.locals.pretty = true;
 
 // setup serving static content and favicon
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {"maxAge": "1y"}));
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 // required for passport
