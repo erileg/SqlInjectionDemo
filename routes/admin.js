@@ -1,4 +1,8 @@
-module.exports = (app, ensureLoggedIn) => {
+module.exports = app => {
+    const
+        ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
+        queryDb = require('../modules/dbConnection')(app).queryDb;
+
     // show all customers
     app.get('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
         const filterVal = req.query.filter;
@@ -15,7 +19,7 @@ module.exports = (app, ensureLoggedIn) => {
 
         const query = `SELECT id, username, role, lastname, firstname, email FROM customers WHERE ${filterClause} ORDER BY ??`;
 
-        app.queryDb(query, queryParams).then(customers => {
+        queryDb(query, queryParams).then(customers => {
             res.render('customers', { "title": "Admin Customer List", "customers": customers, "filter": req.query.filter, mode: "admin" });
         }).catch(err => {
             next(err);
@@ -32,7 +36,7 @@ module.exports = (app, ensureLoggedIn) => {
         } else {
             const query = `SELECT * FROM customers WHERE id = ?`;
 
-            app.queryDb(query, [id]).then(customer => {
+            queryDb(query, [id]).then(customer => {
                 const customerData = customer[0] || {};
                 res.render(template, { "title": "Edit Customer", "customer": customerData });
             }).catch(err => {
@@ -66,7 +70,7 @@ module.exports = (app, ensureLoggedIn) => {
             customerData.push(req.body.id);
         }
 
-        app.queryDb(query, customerData).then(rows => {
+        queryDb(query, customerData).then(rows => {
             const password = req.body.password;
             const confirmPassword = req.body.confirmPassword;
 
@@ -87,7 +91,7 @@ module.exports = (app, ensureLoggedIn) => {
     app.delete('/admin/customers/:id', ensureLoggedIn('/login'), (req, res, next) => {
         const query = "DELETE FROM customers where id=?";
 
-        app.queryDb(query, req.params.id).then(customers => {
+        queryDb(query, req.params.id).then(customers => {
             res.status(200).send();
         }).catch(err => {
             next(err);

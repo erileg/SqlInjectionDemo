@@ -1,29 +1,14 @@
 // modules
 const
     express = require('express'),
-    favicon = require('serve-favicon'),
-    express_session = require('express-session'),
-    passport = require('passport'),
-    ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
     app = express(),
+    express_session = require('express-session'),
     bodyParser = require('body-parser'),
+    favicon = require('serve-favicon'),
     path = require('path'),
     config = require('./config'),
-    logger = require('./modules/logger'),
+    logger = require('./modules/logger')(app),
     morgan = require('morgan');
-
-
-// request logging
-app.use(
-    morgan(':remote-addr - ":method :url HTTP/:http-version" :status :res[content-length]', {
-        "stream": {
-            write: message => logger.debug(message.trim())
-        }
-    }
-));
-
-// register MySql query function in app obejct
-app.queryDb = require('./modules/dbConnection').queryDb;
 
 // setup express to use pug template engine
 app.set('view engine', 'pug');
@@ -41,19 +26,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // initialize passport
-require('./modules/passport')(app, passport);
-
-// index route
-require('./routes/login')(app, passport);
+require('./modules/passport')(app);
 
 // index route
 require('./routes/index')(app);
+
+// login route
+require('./routes/login')(app);
 
 // customers
 require('./routes/customers')(app);
 
 // administration
-require('./routes/admin')(app, ensureLoggedIn);
+require('./routes/admin')(app);
 
 // error handling
 require('./routes/error')(app);

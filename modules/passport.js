@@ -1,8 +1,10 @@
-const
-    LocalStrategy = require('passport-local').Strategy,
-    userQuery = `SELECT id FROM customers WHERE username=? AND PASSWORD(?)=password AND role='Administrator'`;
+module.exports = app => {
+    const
+        passport = require('passport'),
+        LocalStrategy = require('passport-local').Strategy,
+        queryDb = require('../modules/dbConnection').queryDb,
+        userQuery = `SELECT id FROM customers WHERE username=? AND PASSWORD(?)=password AND role='Administrator'`;
 
-module.exports = (app, passport) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
@@ -15,7 +17,7 @@ module.exports = (app, passport) => {
     });
 
     passport.use(new LocalStrategy((username, password, done) => {
-        app.queryDb(userQuery, [username, password]).then(customers => {
+        queryDb(userQuery, [username, password]).then(customers => {
             return done(null, { "id": customers[0].id });
         }).catch(err => {
             return done(null, false)

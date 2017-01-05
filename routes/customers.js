@@ -1,5 +1,6 @@
 module.exports = app => {
-    // show all customers
+    const queryDb = require('../modules/dbConnection')(app).queryDb;
+    
     app.get('/customers', (req, res, next) => {
         const filterVal = req.query.filter;
         let filterClause = "true";
@@ -14,7 +15,7 @@ module.exports = app => {
 
         const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' AND ${filterClause} ORDER BY ??`;
 
-        app.queryDb(query, queryParams).then(customers => {
+        queryDb(query, queryParams).then(customers => {
             res.render('customers', { "title": "Customer List", "customers": customers, "filter": req.query.filter, mode: "view" });
         }).catch(err => {
             next(err);
