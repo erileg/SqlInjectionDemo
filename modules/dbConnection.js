@@ -4,15 +4,15 @@ module.exports = app => {
         mysql = require('mysql'),
         pool = mysql.createPool(config.mysqlconfig),
         logger = require('./logger')(app),
+
         handleError = function (err, connection, reject) {
             logger.error(err);
             if (connection) {
                 connection.release();
             }
-        }
+        },
 
-    return {
-        "queryDb": (query, params) => {
+        queryDb = function (query, params) {
             return new Promise((resolve, reject) => {
                 pool.getConnection((err, connection) => {
                     if (err) {
@@ -34,5 +34,8 @@ module.exports = app => {
                 });
             })
         }
+
+    return {
+        "queryDb": queryDb
     }
 }

@@ -2,7 +2,7 @@ module.exports = app => {
     const
         passport = require('passport'),
         LocalStrategy = require('passport-local').Strategy,
-        queryDb = require('../modules/dbConnection').queryDb,
+        queryDb = require('../modules/dbConnection')(app).queryDb,
         userQuery = `SELECT id FROM customers WHERE username=? AND PASSWORD(?)=password AND role='Administrator'`;
 
     app.use(passport.initialize());
