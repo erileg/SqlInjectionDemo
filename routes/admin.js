@@ -6,18 +6,18 @@ module.exports = app => {
     // show all customers
     app.get('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
         const filterVal = req.query.filter;
-        let filterClause = 'true';
+        let filterClause = '';
         const queryParams = [];
 
         if (filterVal) {
-            filterClause = `INSTR(CONCAT(username, '|', role, '|', firstname, '|', lastname, '|', email), ?) > 0`;
+            filterClause = `WHERE INSTR(CONCAT(username, '|', role, '|', firstname, '|', lastname, '|', email), ?) > 0`;
             queryParams.push(filterVal);
         }
 
         const orderCol = req.query.orderby || 'lastname';
         queryParams.push(orderCol);
 
-        const query = `SELECT id, username, role, lastname, firstname, email FROM customers WHERE ${filterClause} ORDER BY ??`;
+        const query = `SELECT id, username, role, lastname, firstname, email FROM customers ${filterClause} ORDER BY ??`;
 
         queryDb(query, queryParams).then(customers => {
             res.render('customers', { "title": "Admin Customer List", "customers": customers, "filter": req.query.filter, mode: "admin" });
