@@ -27,31 +27,17 @@ app.use(
     })
 );
 
-
 // required for passport
 app.use(express_session({ secret: 'lolwut', resave: false, saveUninitialized: true }));
 
 // body parser
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // initialize passport
 require('./modules/passport')(app);
 
-// index route
-require('./routes/index')(app);
-
-// login route
-require('./routes/login')(app);
-
-// customers
-require('./routes/customers')(app);
-
-// administration
-require('./routes/admin')(app);
-
-// error handling
-require('./routes/error')(app);
+// init routes
+require('./routes/all')(app);
 
 // start server
 var server = app.listen(config.server.port, config.server.address, () => {
