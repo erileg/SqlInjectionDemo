@@ -33,8 +33,8 @@ block content
                             if mode == 'admin'
                                 td(title=customer.role) #{customer.role.charAt(0)}
                             td #{customer.lastname}
-                            td #{customer.firstname} 
-                            td.email #{customer.email} 
+                            td #{customer.firstname}
+                            td.email #{customer.email}
                             if mode == 'admin'
                                 td.nowrap.text-right
                                     a.simple(href='/admin/customers/' + customer.id, title='Edit'): img.icon(alt='Edit', src='/images/edit_customer.png')
