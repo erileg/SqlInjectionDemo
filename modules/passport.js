@@ -1,10 +1,10 @@
-module.exports = app => {
-    const
-        passport = require('passport'),
-        LocalStrategy = require('passport-local').Strategy,
-        queryDb = require('../modules/dbConnection').queryDb,
-        userQuery = `SELECT id FROM customers WHERE username=? AND PASSWORD(?)=password AND role='Administrator'`;
+const
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    queryDb = require('../modules/dbConnection').queryDb,
+    userQuery = `SELECT id FROM customers WHERE username=? AND PASSWORD(?)=password AND role='Administrator'`;
 
+module.exports = app => {
     app.use(passport.initialize());
     app.use(passport.session());
 

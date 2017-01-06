@@ -2,7 +2,7 @@ const
     winston = require('winston'),
     morgan = require('morgan');
 
-winston.emitErrs = true;
+winston.emitErrs = false;
 
 module.exports = logger = new winston.Logger({
     transports: [

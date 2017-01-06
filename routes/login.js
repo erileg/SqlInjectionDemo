@@ -1,6 +1,6 @@
+const passport = require('passport');
+
 module.exports = app => {
-	const passport = require('passport');
-	
 	app.get("/login", (req, res) => {
 		res.render("login", {
 			"title": "Please login"

@@ -1,7 +1,8 @@
+const
+    ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
+    queryDb = require('../modules/dbConnection').queryDb;
+
 module.exports = app => {
-    const
-        ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
-        queryDb = require('../modules/dbConnection').queryDb;
 
     // show all customers
     app.get('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
