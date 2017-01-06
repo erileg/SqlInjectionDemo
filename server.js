@@ -18,7 +18,16 @@ app.locals.pretty = true;
 app.use(express.static(path.join(__dirname, 'public'), { "maxAge": "1y" }));
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
-// request logging
+// init sessions for passport
+app.use(express_session({ secret: 'lolwut', resave: false, saveUninitialized: true }));
+
+// initialize passport
+require('./modules/passport')(app);
+
+// body parser
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// init morgan request logging and redirect to winston
 app.use(
     morgan(':remote-addr - ":method :url HTTP/:http-version" :status :res[content-length]', {
         "stream": {
@@ -26,15 +35,6 @@ app.use(
         }
     })
 );
-
-// required for passport
-app.use(express_session({ secret: 'lolwut', resave: false, saveUninitialized: true }));
-
-// body parser
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// initialize passport
-require('./modules/passport')(app);
 
 // init routes
 require('./routes/all')(app);
