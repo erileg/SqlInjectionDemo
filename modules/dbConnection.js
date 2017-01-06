@@ -1,41 +1,35 @@
-module.exports = app => {
-    const
-        config = require('../config'),
-        mysql = require('mysql'),
-        pool = mysql.createPool(config.mysqlconfig),
-        logger = require('./logger')(app),
+const
+    config = require('../config'),
+    mysql = require('mysql'),
+    pool = mysql.createPool(config.mysqlconfig),
+    logger = require('./logger')
 
-        handleError = function (err, connection, reject) {
-            logger.error(err);
-            if (connection) {
-                connection.release();
-            }
-        },
-
-        queryDb = function (query, params) {
-            return new Promise((resolve, reject) => {
-                pool.getConnection((err, connection) => {
-                    if (err) {
-                        handleError(err, connection);
-                        return reject(err);
-                    }
-
-                    connection.on('error', err => {
-                        handleError(err, connection);
-                        return reject(err);
-                    });
-
-                    const sqlQuery = connection.query(query, params, (err, records) => {
-                        connection.release();
-                        return (err ? reject(err) : resolve(records));
-                    });
-
-                    logger.info('queryDb -> %s', sqlQuery.sql);
-                });
-            })
-        }
-
-    return {
-        "queryDb": queryDb
+const handleError = (err, connection, reject) => {
+    logger.error(err);
+    if (connection) {
+        connection.release();
     }
-}
+};
+
+module.exports.queryDb = (query, params) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                handleError(err, connection);
+                return reject(err);
+            }
+
+            connection.on('error', err => {
+                handleError(err, connection);
+                return reject(err);
+            });
+
+            const sqlQuery = connection.query(query, params, (err, records) => {
+                connection.release();
+                return (err ? reject(err) : resolve(records));
+            });
+
+            logger.info('queryDb -> %s', sqlQuery.sql);
+        });
+    })
+};

@@ -1,5 +1,5 @@
 module.exports = app => {
-    const queryDb = require('../modules/dbConnection')(app).queryDb;
+    const queryDb = require('../modules/dbConnection').queryDb;
     
     app.get('/customers', (req, res, next) => {
         const filterVal = req.query.filter;
