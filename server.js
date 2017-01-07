@@ -1,7 +1,9 @@
 // modules
 const
+    fs = require('fs'),
     express = require('express'),
     app = express(),
+    https = require('https'),
     express_session = require('express-session'),
     compression = require("compression"),
     bodyParser = require('body-parser'),
@@ -43,7 +45,17 @@ app.use(
 // init routes
 require('./routes/all')(app);
 
-// start server
-var server = app.listen(config.server.port, config.server.address, () => {
+// start http server
+// const server = app.listen(config.server.port, config.server.address, () => {
+//    logger.info('Service listening on %s:%s...', server.address().address, server.address().port);
+// });
+
+// start https server
+const server = https.createServer({
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+}, app);
+
+server.listen(config.server.port, config.server.address, () => {
     logger.info('Service listening on %s:%s...', server.address().address, server.address().port);
 });
