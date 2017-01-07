@@ -47,13 +47,13 @@ require('./routes/all')(app);
 
 // start http server
 const httpServer = app.listen(config.server.port, config.server.address, () => {
-   logger.info('HTTP Service listening on %s:%s...', httpServer.address().address, httpServer.address().port);
+    logger.info('HTTP Service listening on %s:%s...', httpServer.address().address, httpServer.address().port);
 });
 
 // start https server
 const httpsServer = https.createServer({
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
 }, app);
 
 httpsServer.listen(config.server.sslport, config.server.address, () => {
