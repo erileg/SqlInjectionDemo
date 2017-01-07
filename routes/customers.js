@@ -1,7 +1,6 @@
 const queryDb = require('../modules/dbConnection').queryDb;
 
 module.exports = app => {
-
     app.get('/customers', (req, res, next) => {
         const filterVal = req.query.filter;
         let filterClause = '';
