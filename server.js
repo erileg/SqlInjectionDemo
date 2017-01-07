@@ -3,6 +3,7 @@ const
     express = require('express'),
     app = express(),
     express_session = require('express-session'),
+    compression = require("compression"),
     bodyParser = require('body-parser'),
     favicon = require('serve-favicon'),
     path = require('path'),
@@ -23,6 +24,9 @@ app.use(express_session({ secret: 'lolwut', resave: false, saveUninitialized: tr
 
 // initialize passport
 require('./modules/passport')(app);
+
+// initialize compression
+app.use(compression());
 
 // body parser
 app.use(bodyParser.urlencoded({ extended: true }));
