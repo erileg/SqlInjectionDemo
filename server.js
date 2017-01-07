@@ -46,16 +46,16 @@ app.use(
 require('./routes/all')(app);
 
 // start http server
-// const server = app.listen(config.server.port, config.server.address, () => {
-//    logger.info('Service listening on %s:%s...', server.address().address, server.address().port);
-// });
+const httpServer = app.listen(config.server.port, config.server.address, () => {
+   logger.info('HTTP Service listening on %s:%s...', httpServer.address().address, httpServer.address().port);
+});
 
 // start https server
-const server = https.createServer({
+const httpsServer = https.createServer({
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
 }, app);
 
-server.listen(config.server.port, config.server.address, () => {
-    logger.info('Service listening on %s:%s...', server.address().address, server.address().port);
+httpsServer.listen(config.server.sslport, config.server.address, () => {
+    logger.info('HTTPS Service listening on %s:%s...', httpsServer.address().address, httpsServer.address().port);
 });
