@@ -24,14 +24,4 @@ module.exports = app => {
             next(err);
         });
     });
-
-    app.delete('/admin/customers/:id', (req, res, next) => {
-        const query = "DELETE FROM customers where id=?";
-
-        app.queryDb(query, req.params.id).then(customers => {
-            res.status(200).send();
-        }).catch(err => {
-            next(err);
-        });
-    });
 }
