@@ -9,7 +9,7 @@ module.exports = logger = new winston.Logger({
         new winston.transports.Console({
             timestamp: () => (new Date()).toLocaleString(),
             level: 'debug',
-            handleExceptions: true,
+            handleExceptions: false,
             json: false,
             colorize: true
         })

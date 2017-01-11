@@ -1,7 +1,7 @@
-const queryDb = require('../modules/dbConnection').queryDb;
+const queryDb = require('../../modules/dbConnection').queryDb;
 
 module.exports = app => {
-    app.get('/customers', (req, res, next) => {
+    app.get('/public/customers', (req, res, next) => {
         const filterVal = req.query.filter;
         let filterClause = '';
         const queryParams = [];

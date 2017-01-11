@@ -1,9 +1,7 @@
-const
-    ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
-    queryDb = require('../modules/dbConnection').queryDb;
+const queryDb = require('../../modules/dbConnection').queryDb;
 
 module.exports = app => {
-    app.get('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
+    app.get('/protected/customers', (req, res, next) => {
         const filterVal = req.query.filter;
         let filterClause = '';
         const queryParams = [];
@@ -26,7 +24,7 @@ module.exports = app => {
     });
 
     // customer form
-    app.get('/admin/customers/:id', ensureLoggedIn('/login'), (req, res, next) => {
+    app.get('/protected/customers/:id', (req, res, next) => {
         const template = 'edit_customer';
         let id = parseInt(req.params.id);
 
@@ -45,7 +43,7 @@ module.exports = app => {
     });
 
     // create/update customer
-    app.post('/admin/customers', ensureLoggedIn('/login'), (req, res, next) => {
+    app.post('/protected/customers', (req, res, next) => {
         let query = SAVE_QUERY;
         const username = req.body.username;
 
@@ -80,18 +78,7 @@ module.exports = app => {
                     next(err);
                 });
             }
-            res.redirect('/admin/customers');
-        }).catch(err => {
-            next(err);
-        });
-    });
-
-    // delete a customer
-    app.delete('/admin/customers/:id', ensureLoggedIn('/login'), (req, res, next) => {
-        const query = "DELETE FROM customers where id=?";
-
-        queryDb(query, req.params.id).then(customers => {
-            res.status(200).send();
+            res.redirect('/protected/customers');
         }).catch(err => {
             next(err);
         });

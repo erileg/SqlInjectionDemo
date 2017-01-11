@@ -31,6 +31,7 @@ require('./modules/passport')(app);
 app.use(compression());
 
 // body parser
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // init morgan request logging and redirect to winston
