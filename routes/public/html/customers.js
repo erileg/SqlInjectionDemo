@@ -1,4 +1,4 @@
-const queryDb = require('../../modules/dbConnection').queryDb;
+const queryDb = require('../../../modules/dbConnection').queryDb;
 
 module.exports = app => {
     app.get('/public/customers', (req, res, next) => {
