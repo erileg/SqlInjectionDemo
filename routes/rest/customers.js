@@ -16,9 +16,19 @@ module.exports = app => {
         sendCustomers(query, [], res, next);
     });
 
+    // new customer
+    app.post('/protected/rest/customers', (req, res, next) => {
+        res.status(405).send();
+    });
+
     app.get('/protected/rest/customers/:id', (req, res, next) => {
         const query = `SELECT * FROM customers WHERE id = ?`;
         sendCustomers(query, [req.params.id], res, next);
+    });
+
+    // uodate customer
+    app.put('/protected/rest/customers/:id', (req, res, next) => {
+        res.status(405).send();
     });
 
     app.delete('/protected/customers/:id', (req, res, next) => {
