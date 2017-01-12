@@ -5,8 +5,8 @@ module.exports = {
         "sslport": "3443"
     },
     "mysqlconfig": {
-        // "host": 'raspberrypi.fritz.box',
-        "host": 'localhost',
+        "host": 'raspberrypi.fritz.box',
+        // "host": 'localhost',
         "user": 'spiff',
         "password": 'WJax2016',
         "database": 'hackme',
