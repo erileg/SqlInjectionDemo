@@ -72,7 +72,7 @@ module.exports = app => {
             const confirmPassword = req.body.confirmPassword;
 
             if (password === confirmPassword && password.length > 0) {
-                app.queryDb("UPDATE customers SET password=PASSWORD(?) WHERE username=?", [password, username]).then(rows => {
+                queryDb("UPDATE customers SET password=PASSWORD(?) WHERE username=?", [password, username]).then(rows => {
                     // nothing to do
                 }).catch(err => {
                     next(err);
