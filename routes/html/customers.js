@@ -26,17 +26,18 @@ module.exports = app => {
     }
 
     app.get('/protected/customers/:id', (req, res, next) => {
-        const template = 'edit_customer';
+        const TEMPLATE = 'edit_customer';
+        
         let id = parseInt(req.params.id);
 
         if (isNaN(id)) {
-            res.render(template, { "title": "New Customer", "customer": {} });
+            res.render(TEMPLATE, { "title": "New Customer", "customer": {} });
         } else {
             const query = `SELECT * FROM customers WHERE id = ?`;
 
             queryDb(query, [id]).then(customer => {
                 const customerData = customer[0] || {};
-                res.render(template, { "title": "Edit Customer", "customer": customerData });
+                res.render(TEMPLATE, { "title": "Edit Customer", "customer": customerData });
             }).catch(err => {
                 next(err);
             });
@@ -72,7 +73,7 @@ module.exports = app => {
             const confirmPassword = req.body.confirmPassword;
 
             if (password === confirmPassword && password.length > 0) {
-                queryDb("UPDATE customers SET password=PASSWORD(?) WHERE username=?", [password, username]).then(rows => {
+                queryDb("UPDATE customers SET password = PASSWORD(?) WHERE username = ?", [password, username]).then(rows => {
                     // nothing to do
                 }).catch(err => {
                     next(err);
