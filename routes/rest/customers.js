@@ -3,17 +3,17 @@ const queryDb = require('../../modules/dbConnection').queryDb;
 module.exports = app => {
     app.get('/public/rest/customers', (req, res, next) => {
         const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER'`;
-        sendCustomers(query, [], res, next);
+        sendCustomers(query, res, next);
     });
 
     app.get('/public/rest/customers/:id', (req, res, next) => {
         const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' AND id = ?`;
-        sendCustomers(query, [req.params.id], res, next);
+        sendCustomer(query, [req.params.id], res, next);
     });
 
     app.get('/protected/rest/customers', (req, res, next) => {
         const query = 'SELECT * FROM customers';
-        sendCustomers(query, [], res, next);
+        sendCustomers(query, res, next);
     });
 
     // new customer
@@ -23,7 +23,7 @@ module.exports = app => {
 
     app.get('/protected/rest/customers/:id', (req, res, next) => {
         const query = `SELECT * FROM customers WHERE id = ?`;
-        sendCustomers(query, [req.params.id], res, next);
+        sendCustomer(query, [req.params.id], res, next);
     });
 
     // uodate customer
@@ -41,13 +41,21 @@ module.exports = app => {
     });
 }
 
-const sendCustomers = function (query, params, res, next) {
-    queryDb(query, params).then(customers => {
-        if (customers && customers.length == 1) {
+const sendCustomer = function (query, queryParams, res, next) {
+    queryDb(query, queryParams).then(customers => {
+        if (customers.length == 1) {
             res.json(customers[0]);
         } else {
-            res.json(customers);
+            res.status(404).send('not found');
         }
+    }).catch(err => {
+        next(err);
+    });
+}
+
+const sendCustomers = function (query, res, next) {
+    queryDb(query).then(customers => {
+        res.json(customers);
     }).catch(err => {
         next(err);
     });
