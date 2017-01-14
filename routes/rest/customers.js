@@ -16,7 +16,7 @@ module.exports = app => {
 
     // new customer
     app.post('/protected/rest/customers', (req, res, next) => {
-        res.status(405).send();
+        res.sendStatus(405);
     });
 
     app.get('/protected/rest/customers/:id', (req, res, next) => {
@@ -25,12 +25,12 @@ module.exports = app => {
 
     // uodate customer
     app.put('/protected/rest/customers/:id', (req, res, next) => {
-        res.status(405).send();
+        res.sendStatus(405);
     });
 
-    app.delete('/protected/customers/:id', (req, res, next) => {
+    app.delete('/protected/rest/customers/:id', (req, res, next) => {
         queryDb(SQL.DELETE_CUSTOMER, [req.params.id]).then(customers => {
-            res.status(200).send();
+            res.sendStatus(200);
         }).catch(err => {
             next(err);
         });
@@ -42,7 +42,7 @@ const sendCustomer = function (query, queryParams, res, next) {
         if (customers.length == 1) {
             res.json(customers[0]);
         } else {
-            res.status(404).send('not found');
+            res.sendStatus(404);
         }
     }).catch(err => {
         next(err);
