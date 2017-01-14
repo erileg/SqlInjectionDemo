@@ -1,19 +1,17 @@
 const queryDb = require('../../modules/dbConnection').queryDb;
+const SQL = require('../../modules/constants').SQL;
 
 module.exports = app => {
     app.get('/public/rest/customers', (req, res, next) => {
-        const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER'`;
-        sendCustomers(query, res, next);
+        sendCustomers(SQL.PUBLIC_CUSTOMER_LIST, res, next);
     });
 
     app.get('/public/rest/customers/:id', (req, res, next) => {
-        const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' AND id = ?`;
-        sendCustomer(query, [req.params.id], res, next);
+        sendCustomer(SQL.PUBLIC_CUSTOMER, [req.params.id], res, next);
     });
 
     app.get('/protected/rest/customers', (req, res, next) => {
-        const query = 'SELECT * FROM customers';
-        sendCustomers(query, res, next);
+        sendCustomers(SQL.COMPLETE_CUSTOMER_LIST, res, next);
     });
 
     // new customer
@@ -22,8 +20,7 @@ module.exports = app => {
     });
 
     app.get('/protected/rest/customers/:id', (req, res, next) => {
-        const query = `SELECT * FROM customers WHERE id = ?`;
-        sendCustomer(query, [req.params.id], res, next);
+        sendCustomer(SQL.COMPLETE_CUSTOMER, [req.params.id], res, next);
     });
 
     // uodate customer
@@ -32,8 +29,7 @@ module.exports = app => {
     });
 
     app.delete('/protected/customers/:id', (req, res, next) => {
-        const query = "DELETE FROM customers where id=?";
-        queryDb(query, [req.params.id]).then(customers => {
+        queryDb(SQL.DELETE_CUSTOMER, [req.params.id]).then(customers => {
             res.status(200).send();
         }).catch(err => {
             next(err);

@@ -1,4 +1,5 @@
 const queryDb = require('../../modules/dbConnection').queryDb;
+const SQL = require('../../modules/constants').SQL;
 
 module.exports = app => {
     app.get('/public/customers', (req, res, next) => {
@@ -33,9 +34,7 @@ module.exports = app => {
         if (isNaN(id)) {
             res.render(TEMPLATE, { "title": "New Customer", "customer": {} });
         } else {
-            const query = `SELECT * FROM customers WHERE id = ?`;
-
-            queryDb(query, [id]).then(customer => {
+            queryDb(SQL.COMPLETE_CUSTOMER, [id]).then(customer => {
                 const customerData = customer[0] || {};
                 res.render(TEMPLATE, { "title": "Edit Customer", "customer": customerData });
             }).catch(err => {
@@ -45,7 +44,7 @@ module.exports = app => {
     });
 
     app.post('/protected/customers', (req, res, next) => {
-        let query = SAVE_QUERY;
+        let query = SQL.SAVE_CUSTOMER;
         const username = req.body.username;
 
         const customerData = [
@@ -64,7 +63,7 @@ module.exports = app => {
         ];
 
         if (req.body.id) {
-            query = UPDATE_QUERY;
+            query = SQL.UPDATE_CUSTOMER;
             customerData.push(req.body.id);
         }
 
@@ -73,7 +72,7 @@ module.exports = app => {
             const confirmPassword = req.body.confirmPassword;
 
             if (password === confirmPassword && password.length > 0) {
-                queryDb("UPDATE customers SET password = PASSWORD(?) WHERE username = ?", [password, username]).then(rows => {
+                queryDb(SQL.UPDATE_PASSWORDS, [password, username]).then(rows => {
                     // nothing to do
                 }).catch(err => {
                     next(err);
@@ -85,36 +84,3 @@ module.exports = app => {
         });
     });
 }
-
-const SAVE_QUERY =
-    `INSERT into customers (
-        username,
-        role,
-        email,
-        firstname,
-        lastname,
-        country,
-        city,
-        zipcode,
-        street,
-        creditcardcmp,
-        creditcardpan,
-        creditcardcvv)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-
-const UPDATE_QUERY =
-    `UPDATE customers SET
-        username = ?,
-        role = ?,
-        email = ?,
-        firstname = ?,
-        lastname = ?,
-        country = ?,
-        city = ?,
-        zipcode = ?,
-        street = ?,
-        creditcardcmp = ?,
-        creditcardpan = ?,
-        creditcardcvv = ?
-        WHERE id = ?`
