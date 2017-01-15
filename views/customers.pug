@@ -18,12 +18,12 @@ block content
                 thead.thead-inverse
                     tr
                         - var filterParam = filter ? '&filter=' + filter : ''
-                        th: a.simple(href='/protected/customers?orderby=username' + filterParam) Username
+                        th: a.simple(href='./customers?orderby=username' + filterParam) Username
                         if mode == 'admin'
-                            th: a.simple(href='/protected/customers?orderby=username' + filterParam) Role
-                        th: a.simple(href='/protected/customers?orderby=lastname' + filterParam) Lastname
-                        th: a.simple(href='/protected/customers?orderby=firstname' + filterParam) Firstname
-                        th.email: a.simple(href='/protected/customers?orderby=email' + filterParam) EMail
+                            th: a.simple(href='./customers?orderby=role' + filterParam) Role
+                        th: a.simple(href='./customers?orderby=lastname' + filterParam) Lastname
+                        th: a.simple(href='./customers?orderby=firstname' + filterParam) Firstname
+                        th.email: a.simple(href='./customers?orderby=email' + filterParam) EMail
                         if mode == 'admin'
                             th.text-right Edit
                 tbody
