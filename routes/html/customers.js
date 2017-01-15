@@ -3,7 +3,8 @@ const SQL = require('../../modules/constants').SQL;
 
 module.exports = app => {
     app.get('/public/customers', (req, res, next) => {
-        const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' ${createFilterClause(req.query.filter)} ORDER BY ??`;
+        const filterClause = req.query.filter ? `AND INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), "${req.query.filter}") > 0` : '';
+        const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' ${filterClause} ORDER BY ??`;
 
         queryDb(query, [req.query.orderby || 'lastname']).then(customers => {
             res.render('customers', { "title": 'Customer List', "customers": customers, "filter": req.query.filter, "mode": 'view' });
@@ -13,18 +14,15 @@ module.exports = app => {
     });
 
     app.get('/protected/customers', (req, res, next) => {
-        const query = `SELECT id, username, role, lastname, firstname, email FROM customers WHERE true ${createFilterClause(req.query.filter)} ORDER BY ??`;
+        const query = `SELECT id, username, role, lastname, firstname, email FROM customers WHERE INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), ?) > 0 ORDER BY ??`;
+        const filterVal = req.query.filter || '';
 
-        queryDb(query, [req.query.orderby || 'lastname']).then(customers => {
+        queryDb(query, [filterVal, req.query.orderby || 'lastname']).then(customers => {
             res.render('customers', { "title": 'Admin Customer List', "customers": customers, "filter": req.query.filter, "mode": 'admin' });
         }).catch(err => {
             next(err);
         });
     });
-
-    const createFilterClause = function (filterVal) {
-        return filterVal ? `AND INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), "${filterVal}") > 0` : '';
-    }
 
     app.get('/protected/customers/:id', (req, res, next) => {
         const TEMPLATE = 'edit_customer';
