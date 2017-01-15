@@ -15,9 +15,8 @@ module.exports = app => {
 
     app.get('/protected/customers', (req, res, next) => {
         const query = `SELECT id, username, role, lastname, firstname, email FROM customers WHERE INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), ?) > 0 ORDER BY ??`;
-        const filterVal = req.query.filter || '';
 
-        queryDb(query, [filterVal, req.query.orderby || 'lastname']).then(customers => {
+        queryDb(query, [req.query.filter || '', req.query.orderby || 'lastname']).then(customers => {
             res.render('customers', { "title": 'Admin Customer List', "customers": customers, "filter": req.query.filter, "mode": 'admin' });
         }).catch(err => {
             next(err);
