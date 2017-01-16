@@ -3,10 +3,9 @@ const SQL = require('../../modules/constants').SQL;
 
 module.exports = app => {
     app.get('/public/customers', (req, res, next) => {
-        const filterClause = req.query.filter ? `AND INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), "${req.query.filter}") > 0` : '';
-        const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' ${filterClause} ORDER BY ??`;
+        const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' AND INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), ?) > 0 ORDER BY ??`;
 
-        queryDb(query, [req.query.orderby || 'lastname']).then(customers => {
+        queryDb(query, [req.query.filter || '', req.query.orderby || 'lastname']).then(customers => {
             res.render('customers', { "title": 'Customer List', "customers": customers, "filter": req.query.filter, "mode": 'view' });
         }).catch(err => {
             next(err);
