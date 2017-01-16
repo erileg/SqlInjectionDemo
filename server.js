@@ -13,6 +13,9 @@ const
     logger = require('./modules/logger'),
     morgan = require('morgan');
 
+// enable reverse proxy support
+app.enable('trust proxy');
+
 // setup express to use pug template engine
 app.set('view engine', 'pug');
 app.locals.pretty = true;
