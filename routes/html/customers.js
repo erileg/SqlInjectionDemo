@@ -3,9 +3,7 @@ const SQL = require('../../modules/constants').SQL;
 
 module.exports = app => {
     app.get('/public/customers', (req, res, next) => {
-        const query = `SELECT id, username, lastname, firstname, email FROM customers WHERE role = 'CUSTOMER' AND INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), ?) > 0 ORDER BY ??`;
-
-        queryDb(query, [req.query.filter || '', req.query.orderby || 'lastname']).then(customers => {
+        queryDb(SQL.PUBLIC_FILTERED_CUSTOMER_LIST, [req.query.filter || '', req.query.orderby || 'lastname']).then(customers => {
             res.render('customers', { "title": 'Customer List', "customers": customers, "filter": req.query.filter, "mode": 'view' });
         }).catch(err => {
             next(err);
@@ -13,9 +11,7 @@ module.exports = app => {
     });
 
     app.get('/protected/customers', (req, res, next) => {
-        const query = `SELECT id, username, role, lastname, firstname, email FROM customers WHERE INSTR(CONCAT(username, '|', firstname, '|', lastname, '|', email), ?) > 0 ORDER BY ??`;
-
-        queryDb(query, [req.query.filter || '', req.query.orderby || 'lastname']).then(customers => {
+        queryDb(SQL.PROTECTED_FILTERED_CUSTOMER_LIST, [req.query.filter || '', req.query.orderby || 'lastname']).then(customers => {
             res.render('customers', { "title": 'Admin Customer List', "customers": customers, "filter": req.query.filter, "mode": 'admin' });
         }).catch(err => {
             next(err);
