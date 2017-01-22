@@ -5,7 +5,7 @@ module.exports = app => {
 		}).map(r => {
 			return {
 				"method": Object.keys(r.route.methods)[0].toUpperCase(),
-				"url": `${req.protocol}://${req.hostname}:${req.socket.localPort}${r.route.path}`
+				"url": r.route.path
 			};
 		});
 
